@@ -1,0 +1,791 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Spritle Open Source — Projects We Build, Manage, and Sponsor</title>
+
+  <!-- SEO Meta Tags -->
+  <meta name="description"
+    content="Explore Spritle Software's open-source projects. We build, manage, and sponsor tools, frameworks, and libraries to solve real-world engineering problems." />
+  <meta name="keywords"
+    content="Spritle, Open Source, Paddock, CI/CD, Mobile, PPE Detection, AI, Robotics, Software Engineering, GitHub" />
+  <meta name="author" content="Spritle Software" />
+
+  <!-- Open Graph / Facebook -->
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="Spritle Open Source — Projects We Build, Manage, and Sponsor" />
+  <meta property="og:description"
+    content="Explore Spritle Software's open-source projects. We build, manage, and sponsor tools, frameworks, and libraries to solve real-world engineering problems." />
+  <meta property="og:image" content="hero.png" />
+
+  <!-- Twitter -->
+  <meta property="twitter:card" content="summary_large_image" />
+  <meta property="twitter:title" content="Spritle Open Source — Projects We Build, Manage, and Sponsor" />
+  <meta property="twitter:description"
+    content="Explore Spritle Software's open-source projects. We build, manage, and sponsor tools, frameworks, and libraries to solve real-world engineering problems." />
+  <meta property="twitter:image" content="hero.png" />
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap"
+    rel="stylesheet">
+
+  <style>
+    :root {
+      --bg-primary: #ffffff;
+      --bg-secondary: #f8fafc;
+      --text-primary: #0f172a;
+      /* Slate 900 */
+      --text-secondary: #475569;
+      /* Slate 600 */
+      --text-muted: #64748b;
+      /* Slate 500 */
+      --color-spritle-blue: #15AED5;
+      --color-spritle-green: #82C341;
+      --border-color: #f1f5f9;
+      /* Slate 100 */
+      --border-accent: #e2e8f0;
+      /* Slate 200 */
+      --gradient-primary: linear-gradient(135deg, #15AED5 0%, #82C341 100%);
+      --gradient-glow: rgba(21, 174, 213, 0.12);
+
+      --font-sans: 'Plus Jakarta Sans', sans-serif;
+      --font-display: 'Outfit', sans-serif;
+
+      --radius-sm: 8px;
+      --radius-md: 16px;
+      --radius-lg: 24px;
+      --radius-xl: 32px;
+
+      --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+      --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -2px rgba(0, 0, 0, 0.05);
+      --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.05), 0 4px 6px -4px rgba(0, 0, 0, 0.05);
+      --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.05), 0 8px 10px -6px rgba(0, 0, 0, 0.05);
+      --shadow-glow: 0 12px 30px rgba(21, 174, 213, 0.2);
+
+      --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: var(--font-sans);
+      background-color: var(--bg-primary);
+      color: var(--text-primary);
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+      overflow-x: hidden;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+      transition: var(--transition);
+    }
+
+    .container {
+      width: 100%;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+
+    /* ---------- Navigation ---------- */
+    header {
+      position: sticky;
+      top: 0;
+      background-color: var(--bg-primary);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border-color);
+      z-index: 100;
+      transition: var(--transition);
+    }
+
+    .nav-wrapper {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 80px;
+    }
+
+    .logo-link {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .logo-img {
+      height: 25px;
+      width: auto;
+      display: block;
+      transition: var(--transition);
+    }
+
+    .logo-link:hover .logo-img {
+      transform: scale(1.02);
+    }
+
+    .nav-actions {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+
+    .btn-github {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 6px 14px;
+      border-radius: 999px;
+      font-size: 0.82rem;
+      font-weight: 600;
+      color: var(--text-primary);
+      background-color: var(--bg-secondary);
+      border: 1px solid var(--border-accent);
+      transition: var(--transition);
+    }
+
+    .btn-github:hover {
+      background-color: var(--text-primary);
+      color: var(--bg-primary);
+      border-color: var(--text-primary);
+      transform: translateY(-1px);
+    }
+
+    .btn-github svg {
+      width: 14px;
+      height: 14px;
+      fill: currentColor;
+    }
+
+    /* ---------- Hero Section ---------- */
+    .hero {
+      position: relative;
+      padding: 40px 0 50px;
+      background: radial-gradient(circle at 90% 10%, rgba(21, 174, 213, 0.04) 0%, transparent 40%),
+        radial-gradient(circle at 10% 80%, rgba(130, 195, 65, 0.04) 0%, transparent 40%);
+      overflow: hidden;
+    }
+
+    .hero-grid {
+      display: grid;
+      grid-template-columns: 1.1fr 0.9fr;
+      gap: 64px;
+      align-items: center;
+    }
+
+    .hero-content {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+    }
+
+    @keyframes pulse {
+      0% {
+        transform: scale(1);
+        opacity: 1;
+      }
+
+      100% {
+        transform: scale(2.2);
+        opacity: 0;
+      }
+    }
+
+    .hero-title {
+      font-family: var(--font-display);
+      font-size: clamp(2.8rem, 5vw, 4.2rem);
+      font-weight: 900;
+      line-height: 1.05;
+      letter-spacing: -0.03em;
+      margin-bottom: 24px;
+      color: var(--text-primary);
+    }
+
+    .hero-title .highlight {
+      background: var(--gradient-primary);
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .hero-subtitle {
+      font-size: 1.3rem;
+      font-weight: 600;
+      color: var(--text-secondary);
+      margin-bottom: 16px;
+      letter-spacing: -0.01em;
+    }
+
+    .hero-desc {
+      font-size: 1.1rem;
+      color: var(--text-muted);
+      margin-bottom: 36px;
+      max-width: 520px;
+    }
+
+    .cta-group {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+
+    .btn-primary {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 12px 28px;
+      border-radius: 999px;
+      font-size: 1rem;
+      font-weight: 700;
+      color: #ffffff;
+      background: var(--gradient-primary);
+      box-shadow: var(--shadow-glow);
+      transition: var(--transition);
+      border: none;
+      cursor: pointer;
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 16px 36px rgba(21, 174, 213, 0.35);
+    }
+
+    .btn-secondary {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 12px 28px;
+      border-radius: 999px;
+      font-size: 1rem;
+      font-weight: 700;
+      color: var(--text-primary);
+      background-color: #ffffff;
+      border: 1px solid var(--border-accent);
+      box-shadow: var(--shadow-sm);
+      transition: var(--transition);
+    }
+
+    .btn-secondary:hover {
+      border-color: var(--text-primary);
+      transform: translateY(-2px);
+      box-shadow: var(--shadow-md);
+    }
+
+    .hero-image-container {
+      position: relative;
+      width: 100%;
+      overflow: hidden;
+    }
+
+    .hero-img {
+      width: 100%;
+      height: auto;
+      display: block;
+      transition: var(--transition);
+    }
+
+    .hero-image-container:hover .hero-img {
+      transform: scale(1.01);
+    }
+
+    /* ---------- Projects Section ---------- */
+    .projects-section {
+      padding: 50px 0 100px;
+      background-color: var(--bg-secondary);
+      border-top: 1px solid var(--border-color);
+    }
+
+    .section-header {
+      text-align: center;
+      max-width: 600px;
+      margin: 0 auto 64px;
+    }
+
+    .eyebrow {
+      font-size: 0.8rem;
+      font-weight: 800;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--color-spritle-blue);
+      margin-bottom: 12px;
+    }
+
+    .section-title {
+      font-family: var(--font-display);
+      font-size: clamp(2rem, 3.5vw, 2.6rem);
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      margin-bottom: 16px;
+      color: var(--text-primary);
+    }
+
+    .section-subtitle {
+      font-size: 1.05rem;
+      color: var(--text-secondary);
+    }
+
+    .projects-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+    }
+
+    .project-card {
+      background-color: var(--bg-primary);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-md);
+      padding: 32px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      box-shadow: var(--shadow-md);
+      transition: var(--transition);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .project-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 4px;
+      background: var(--gradient-primary);
+      opacity: 0;
+      transition: var(--transition);
+    }
+
+    .project-card:hover {
+      transform: translateY(-6px);
+      box-shadow: var(--shadow-xl);
+      border-color: var(--border-accent);
+    }
+
+    .project-card:hover::before {
+      opacity: 1;
+    }
+
+    .card-top {
+      margin-bottom: 24px;
+    }
+
+    .card-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 16px;
+    }
+
+    .project-icon-wrapper {
+      width: 48px;
+      height: 48px;
+      border-radius: 12px;
+      background: rgba(100, 116, 139, 0.06);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--text-secondary);
+      transition: var(--transition);
+    }
+
+    .project-card:hover .project-icon-wrapper {
+      background: var(--gradient-primary);
+      color: #ffffff;
+    }
+
+    .project-icon-wrapper svg {
+      width: 24px;
+      height: 24px;
+      fill: currentColor;
+    }
+
+    .github-stats {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      font-size: 0.8rem;
+      font-weight: 700;
+      color: var(--text-secondary);
+      background-color: var(--bg-secondary);
+      padding: 4px 10px;
+      border-radius: 999px;
+      border: 1px solid var(--border-color);
+    }
+
+    .github-stats svg {
+      width: 14px;
+      height: 14px;
+      fill: #eab308;
+      /* Yellow 500 */
+    }
+
+    .project-title {
+      font-family: var(--font-display);
+      font-size: 1.3rem;
+      font-weight: 700;
+      letter-spacing: -0.01em;
+      margin-bottom: 12px;
+      color: var(--text-primary);
+    }
+
+    .project-description {
+      font-size: 0.95rem;
+      color: var(--text-secondary);
+      line-height: 1.55;
+      margin-bottom: 20px;
+    }
+
+    .tech-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .tech-tag {
+      font-size: 0.75rem;
+      font-weight: 600;
+      color: var(--text-secondary);
+      background-color: var(--bg-secondary);
+      padding: 4px 10px;
+      border-radius: 6px;
+      border: 1px solid var(--border-color);
+    }
+
+    .card-footer {
+      border-top: 1px solid var(--border-color);
+      padding-top: 20px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .link-view-repo {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 0.9rem;
+      font-weight: 700;
+      color: var(--text-secondary);
+      transition: var(--transition);
+      flex-shrink: 0;
+      white-space: nowrap;
+    }
+
+    .project-card:hover .link-view-repo {
+      color: var(--color-spritle-green);
+    }
+
+    .link-view-repo svg {
+      width: 16px;
+      height: 16px;
+      transition: var(--transition);
+      fill: currentColor;
+    }
+
+    .project-card:hover .link-view-repo svg {
+      transform: translateX(4px);
+    }
+
+    /* ---------- Footer ---------- */
+    footer {
+      padding: 64px 0 40px;
+      background-color: var(--bg-primary);
+      border-top: 1px solid var(--border-color);
+      text-align: center;
+    }
+
+    .footer-logo {
+      height: 38px;
+      width: auto;
+      margin-bottom: 24px;
+    }
+
+    .footer-desc {
+      font-size: 0.95rem;
+      color: var(--text-muted);
+      max-width: 500px;
+      margin: 0 auto 32px;
+    }
+
+    .footer-links {
+      display: flex;
+      justify-content: center;
+      gap: 24px;
+      margin-bottom: 32px;
+    }
+
+    .footer-link {
+      font-size: 0.9rem;
+      font-weight: 600;
+      color: var(--text-secondary);
+    }
+
+    .footer-link:hover {
+      color: var(--color-spritle-blue);
+    }
+
+    .copyright {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      border-top: 1px solid var(--border-color);
+      padding-top: 32px;
+    }
+
+    .copyright a {
+      color: var(--color-spritle-blue);
+      font-weight: 600;
+    }
+
+    .copyright a:hover {
+      text-decoration: underline;
+    }
+
+    /* ---------- Responsive Layouts ---------- */
+    @media (max-width: 1024px) {
+      .projects-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    @media (max-width: 900px) {
+      .hero {
+        padding: 60px 0 80px;
+      }
+
+      .hero-grid {
+        grid-template-columns: 1fr;
+        gap: 48px;
+        text-align: center;
+      }
+
+      .hero-content {
+        align-items: center;
+      }
+
+      .hero-desc {
+        margin-left: auto;
+        margin-right: auto;
+      }
+
+      .cta-group {
+        justify-content: center;
+      }
+
+      .hero-image-container {
+        max-width: 540px;
+        margin: 0 auto;
+      }
+    }
+
+    @media (max-width: 640px) {
+      .projects-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .hero-title {
+        font-size: 2.4rem;
+      }
+
+      .project-card {
+        padding: 24px;
+      }
+
+      .cta-group {
+        flex-direction: column;
+        width: 100%;
+      }
+
+      .btn-primary,
+      .btn-secondary {
+        width: 100%;
+        justify-content: center;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <!-- ===== HEADER NAV ===== -->
+  <header>
+    <div class="container nav-wrapper">
+      <a class="logo-link" href="#" id="navLogo">
+        <img src="logo.svg" alt="Spritle Software Logo" class="logo-img" />
+      </a>
+      <div class="nav-actions">
+        <a class="btn-github" href="https://github.com/spritle" target="_blank" rel="noopener noreferrer"
+          id="navGithubBtn">
+          <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            <path
+              d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12" />
+          </svg>
+          <span>GitHub</span>
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <!-- ===== HERO SECTION ===== -->
+  <section class="hero">
+    <div class="container hero-grid">
+      <div class="hero-content">
+        <h3 class="hero-title">
+          Open Source <br />
+          <span class="highlight">That Empowers</span>
+        </h3>
+        <p class="hero-subtitle">Projects we build, manage, and sponsor</p>
+        <p class="hero-desc">
+          We believe in sharing knowledge and collaborating with the community. Explore our tools, frameworks, and
+          utilities built by engineers to solve real-world development and infrastructure challenges.
+        </p>
+        <div class="cta-group">
+          <a class="btn-primary" href="#projects" id="heroExploreBtn">Explore Projects</a>
+          <a class="btn-secondary" href="https://github.com/spritle" target="_blank" rel="noopener noreferrer"
+            id="heroGithubBtn">
+            Our GitHub Profile
+          </a>
+        </div>
+      </div>
+      <div class="hero-image-container">
+        <img class="hero-img" src="hero.png"
+          alt="Illustration representing mobile CI/CD pipeline, robotics vision development, and AI engineering" />
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== PROJECTS SECTION ===== -->
+  <section class="projects-section" id="projects">
+    <div class="container">
+      <div class="section-header">
+        <p class="eyebrow">Our Repositories</p>
+        <h2 class="section-title">Featured Projects</h2>
+        <p class="section-subtitle">
+          Discover libraries, platforms, and samples developed and actively maintained by the Spritle Software team.
+        </p>
+      </div>
+
+      <div class="projects-grid">
+
+        <!-- Project 1: Paddock -->
+        <div class="project-card">
+          <div class="card-top">
+            <div class="card-header">
+              <div class="project-icon-wrapper" aria-label="CI/CD Icon">
+                <!-- CI/CD / Server Icon -->
+                <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                  <path
+                    d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.53c-.26-.81-1-1.4-1.9-1.4h-1v-3c0-.55-.45-1-1-1h-6v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.4z" />
+                </svg>
+              </div>
+              <div class="github-stats">
+                <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z" />
+                </svg>
+                <span>CI/CD</span>
+              </div>
+            </div>
+            <h3 class="project-title">Paddock</h3>
+            <p class="project-description">
+              A self-hosted, open-source mobile CI/CD platform. Build, sign, test, and release your iOS & Android apps
+              without managing heavy infrastructure or paying cloud premium.
+            </p>
+          </div>
+          <div class="card-footer">
+            <div class="tech-tags">
+              <span class="tech-tag">Mobile</span>
+              <span class="tech-tag">CI/CD</span>
+              <span class="tech-tag">Docker</span>
+            </div>
+            <a class="link-view-repo" href="https://github.com/spritle/paddock" target="_blank"
+              rel="noopener noreferrer">
+              <span>View Code</span>
+              <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                <path d="M5 12h14M12 5l7 7-7 7" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                  stroke-linejoin="round" fill="none" />
+              </svg>
+            </a>
+          </div>
+        </div>
+
+        <!-- Project 2: PPE Detection Android -->
+        <div class="project-card">
+          <div class="card-top">
+            <div class="card-header">
+              <div class="project-icon-wrapper" aria-label="AI Camera Icon">
+                <!-- Eye / Vision Icon -->
+                <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                  <path
+                    d="M12 4.5C7 4.5 2.73 7.61 1 12c1.73 4.39 6 7.5 11 7.5s9.27-3.11 11-7.5c-1.73-4.39-6-7.5-11-7.5zM12 17c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5zm0-8c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z" />
+                </svg>
+              </div>
+              <div class="github-stats">
+                <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z" />
+                </svg>
+                <span>AI</span>
+              </div>
+            </div>
+            <h3 class="project-title">PPE Detection Android</h3>
+            <p class="project-description">
+              On-device real-time Personal Protective Equipment (PPE) detection tool using CameraX, TensorFlow Lite, and
+              YOLOv8n to ensure safety compliance on Android.
+            </p>
+          </div>
+          <div class="card-footer">
+            <div class="tech-tags">
+              <span class="tech-tag">YOLOv8</span>
+              <span class="tech-tag">Android</span>
+              <!-- <span class="tech-tag">TFLite</span> -->
+            </div>
+            <a class="link-view-repo" href="https://github.com/spritle/ppe-detection-android" target="_blank"
+              rel="noopener noreferrer">
+              <span>View Code</span>
+              <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                <path d="M5 12h14M12 5l7 7-7 7" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                  stroke-linejoin="round" fill="none" />
+              </svg>
+            </a>
+          </div>
+        </div>
+
+
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== FOOTER ===== -->
+  <footer>
+    <div class="container">
+      <img src="logo.svg" alt="Spritle Software Logo" class="footer-logo" />
+      <p class="footer-desc">
+        Spritle Software is an AI-first software development team building modern enterprise apps and AI-ready products.
+      </p>
+      <!-- <div class="footer-links">
+        <a class="footer-link" href="https://github.com/spritle" target="_blank" rel="noopener noreferrer">GitHub</a>
+        <a class="footer-link" href="https://github.com/spritlesoftware" target="_blank"
+          rel="noopener noreferrer">Alternative GitHub</a>
+      </div> -->
+      <p class="copyright">
+        © 2026 Spritle Software. Created with ❤️ & Open Source.
+      </p>
+    </div>
+  </footer>
+</body>
+
+</html>

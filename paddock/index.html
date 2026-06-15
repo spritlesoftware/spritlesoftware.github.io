@@ -1,0 +1,1229 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>
+    Paddock — Build & Deploy Mobile Apps Without Managing CI/CD Infrastructure
+  </title>
+  <meta name="description"
+    content="Paddock by Spritle is a self-hosted, open-source mobile CI/CD platform. Build, sign, test, and release your apps — without managing infrastructure. Join the beta." />
+
+  <meta property="og:title" content="Build & Deploy Mobile Apps Without Managing CI/CD Infrastructure" />
+  <meta property="og:description"
+    content="Paddock by Spritle — self-hosted, open-source mobile CI/CD. Build, sign, test, and release without managing infrastructure." />
+  <meta property="og:image" content="hero.png" />
+  <meta property="og:type" content="website" />
+
+  <style>
+    /* ---------- Airbnb Cereal ----------
+         Proprietary font — not on any public CDN. Drop the font files into a
+         ./fonts/ folder next to this file (filenames below). Until then, the
+         system fallback stack in --font is used automatically. */
+    @font-face {
+      font-family: "Airbnb Cereal App";
+      src:
+        url("fonts/AirbnbCereal-Book.woff2") format("woff2"),
+        url("fonts/AirbnbCereal-Book.woff") format("woff");
+      font-weight: 400;
+      font-style: normal;
+      font-display: swap;
+    }
+
+    @font-face {
+      font-family: "Airbnb Cereal App";
+      src:
+        url("fonts/AirbnbCereal-Medium.woff2") format("woff2"),
+        url("fonts/AirbnbCereal-Medium.woff") format("woff");
+      font-weight: 500 600;
+      font-style: normal;
+      font-display: swap;
+    }
+
+    @font-face {
+      font-family: "Airbnb Cereal App";
+      src:
+        url("fonts/AirbnbCereal-Bold.woff2") format("woff2"),
+        url("fonts/AirbnbCereal-Bold.woff") format("woff");
+      font-weight: 700;
+      font-style: normal;
+      font-display: swap;
+    }
+
+    @font-face {
+      font-family: "Airbnb Cereal App";
+      src:
+        url("fonts/AirbnbCereal-ExtraBold.woff2") format("woff2"),
+        url("fonts/AirbnbCereal-ExtraBold.woff") format("woff");
+      font-weight: 800 900;
+      font-style: normal;
+      font-display: swap;
+    }
+
+    :root {
+      --bg: #f4f5f7;
+      --bg-soft: #eef0f4;
+      --bg-tint: #ecfafc;
+      --surface: #ffffff;
+      --border: #e4eaf1;
+      --border-strong: #d3dce6;
+      --text: #0e1b2a;
+      --text-soft: #4d5d72;
+      --text-faint: #8593a6;
+      --brand: #11b3c6;
+      --brand-dark: #0b8fa0;
+      --brand-2: #6cc24a;
+      --brand-glow: rgba(17, 179, 198, 0.3);
+      --danger: #e0413f;
+      --radius: 14px;
+      --maxw: 1180px;
+      --font:
+        "Airbnb Cereal App", "Airbnb Cereal", "Cereal", -apple-system,
+        BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: var(--font);
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.55;
+      -webkit-font-smoothing: antialiased;
+      overflow-x: hidden;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    .wrap {
+      max-width: var(--maxw);
+      margin: 0 auto;
+    }
+
+    /* ---------- Nav ---------- */
+    header {
+      position: relative;
+      z-index: 20;
+    }
+
+    .nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 22px 0;
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+    }
+
+    .logo-img {
+      height: 34px;
+      width: auto;
+      display: block;
+    }
+
+    .nav-cta {
+      font-size: 0.9rem;
+      font-weight: 700;
+      padding: 10px 20px;
+      border-radius: 999px;
+      color: #fff;
+      background: linear-gradient(135deg, var(--brand), var(--brand-dark));
+      box-shadow: 0 6px 18px var(--brand-glow);
+      transition:
+        transform 0.15s,
+        box-shadow 0.2s;
+    }
+
+    .nav-cta:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 10px 26px var(--brand-glow);
+    }
+
+    /* ---------- Hero ---------- */
+    .hero-band {
+      position: relative;
+      background: var(--bg);
+      border-bottom: 1px solid #e9edf2;
+      overflow: hidden;
+    }
+
+    .hero-grid {
+      position: relative;
+      z-index: 1;
+      display: grid;
+      grid-template-columns: 1.12fr 0.88fr;
+      gap: 168px;
+      align-items: center;
+      padding: 40px 0 64px;
+    }
+
+    .hero-visual {
+      position: relative;
+    }
+
+    .hero-illustration {
+      position: relative;
+      z-index: 1;
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+
+    /* fallback if hero.png is missing */
+    .img-placeholder {
+      width: 100%;
+      aspect-ratio: 1 / 1;
+      border-radius: 18px;
+      border: 1px dashed var(--border-strong);
+      background: var(--bg-soft);
+      display: none;
+      place-items: center;
+      text-align: center;
+      color: var(--text-faint);
+    }
+
+    .img-placeholder strong {
+      color: var(--text-soft);
+      display: block;
+      margin-bottom: 6px;
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 0.92rem;
+      font-weight: 700;
+      color: var(--text);
+      background: #fff;
+      border: 1px solid #e6ebf1;
+      padding: 9px 18px;
+      border-radius: 999px;
+      margin-bottom: 28px;
+      box-shadow: 0 6px 18px rgba(30, 60, 100, 0.07);
+    }
+
+    .badge .dot {
+      width: 9px;
+      height: 9px;
+      border-radius: 50%;
+      background: var(--brand-2);
+      box-shadow: 0 0 8px var(--brand-2);
+      animation: pulse 2s infinite;
+    }
+
+    @keyframes pulse {
+
+      0%,
+      100% {
+        opacity: 1;
+      }
+
+      50% {
+        opacity: 0.4;
+      }
+    }
+
+    h1 {
+      font-size: clamp(2.6rem, 5vw, 4.1rem);
+      line-height: 1.02;
+      letter-spacing: -0.04em;
+      font-weight: 800;
+      margin-bottom: 22px;
+    }
+
+    h1 .grad {
+      background: linear-gradient(100deg,
+          var(--brand) 10%,
+          var(--brand-2) 95%);
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .lede {
+      font-size: 1.28rem;
+      line-height: 1.5;
+      color: var(--text-soft);
+      margin-bottom: 14px;
+      max-width: 30ch;
+    }
+
+    .lede.tight {
+      margin-bottom: 34px;
+    }
+
+    .cta-group {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      flex-wrap: wrap;
+      margin-bottom: 30px;
+    }
+
+    .hero-cta {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 1.05rem;
+      font-weight: 700;
+      padding: 16px 32px;
+      border-radius: 999px;
+      color: #fff;
+      background: var(--brand);
+      box-shadow: 0 12px 30px var(--brand-glow);
+      transition:
+        transform 0.15s,
+        box-shadow 0.2s,
+        background 0.2s;
+      border: none;
+      cursor: pointer;
+    }
+
+    .hero-cta:hover {
+      transform: translateY(-2px);
+      background: var(--brand-dark);
+      box-shadow: 0 16px 40px var(--brand-glow);
+    }
+
+    .demo-cta {
+      display: inline-flex;
+      align-items: center;
+      gap: 11px;
+      font-size: 1.05rem;
+      font-weight: 700;
+      padding: 15px 28px;
+      border-radius: 999px;
+      color: var(--text);
+      background: #fff;
+      border: 1px solid var(--border-strong);
+      transition:
+        transform 0.15s,
+        border-color 0.2s;
+      cursor: pointer;
+    }
+
+    .demo-cta:hover {
+      transform: translateY(-2px);
+      border-color: var(--brand);
+    }
+
+    .demo-cta .play {
+      width: 26px;
+      height: 26px;
+      border-radius: 50%;
+      border: 1.5px solid currentColor;
+      display: grid;
+      place-items: center;
+      font-size: 9px;
+    }
+
+    .hero-meta {
+      display: flex;
+      align-items: center;
+      flex-wrap: wrap;
+      font-size: 0.98rem;
+      color: var(--text-soft);
+    }
+
+    .hero-meta span {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 0 20px;
+      border-left: 1px solid var(--border-strong);
+    }
+
+    .hero-meta span:first-child {
+      padding-left: 0;
+      border-left: none;
+    }
+
+    .check {
+      color: var(--brand-2);
+      font-weight: 800;
+    }
+
+    /* ---------- Pipeline ---------- */
+    .pipeline {
+      position: relative;
+      z-index: 2;
+      padding: 72px 0 8px;
+      text-align: center;
+    }
+
+    .eyebrow {
+      font-size: 0.76rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--brand-dark);
+      font-weight: 700;
+      margin-bottom: 10px;
+    }
+
+    .pipeline h2 {
+      font-size: clamp(1.5rem, 3.4vw, 2rem);
+      letter-spacing: -0.02em;
+      margin-bottom: 32px;
+    }
+
+    .flow {
+      display: flex;
+      align-items: stretch;
+      justify-content: center;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    .step {
+      flex: 1 1 150px;
+      max-width: 200px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 18px 14px;
+      text-align: center;
+      box-shadow: 0 4px 14px rgba(14, 27, 42, 0.04);
+    }
+
+    .step .si {
+      font-size: 22px;
+      margin-bottom: 8px;
+      display: block;
+    }
+
+    .step h4 {
+      font-size: 0.92rem;
+      letter-spacing: 0.02em;
+      text-transform: uppercase;
+    }
+
+    .step small {
+      display: block;
+      color: var(--text-faint);
+      font-size: 0.72rem;
+      margin-top: 4px;
+    }
+
+    .arrow {
+      display: grid;
+      place-items: center;
+      color: var(--brand);
+      font-size: 20px;
+      font-weight: 800;
+    }
+
+    .step.release {
+      border-color: #bfeef3;
+      background: var(--bg-tint);
+    }
+
+    /* ---------- Features ---------- */
+    .features {
+      position: relative;
+      z-index: 2;
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 16px;
+      padding: 56px 0 16px;
+    }
+
+    .feature {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 24px;
+      transition:
+        transform 0.15s,
+        border-color 0.2s,
+        box-shadow 0.2s;
+    }
+
+    .feature:hover {
+      transform: translateY(-3px);
+      border-color: var(--brand);
+      box-shadow: 0 12px 30px rgba(17, 179, 198, 0.1);
+    }
+
+    .feature .ficon {
+      width: 42px;
+      height: 42px;
+      border-radius: 10px;
+      display: grid;
+      place-items: center;
+      background: var(--bg-tint);
+      color: var(--brand-dark);
+      font-size: 20px;
+      margin-bottom: 14px;
+    }
+
+    .feature h3 {
+      font-size: 1.02rem;
+      margin-bottom: 7px;
+      letter-spacing: -0.01em;
+    }
+
+    .feature p {
+      font-size: 0.9rem;
+      color: var(--text-soft);
+    }
+
+    /* ---------- Frameworks ---------- */
+    .frameworks {
+      position: relative;
+      z-index: 2;
+      text-align: center;
+      padding: 48px 0 8px;
+    }
+
+    .frameworks p {
+      font-size: 0.76rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--text-faint);
+      margin-bottom: 16px;
+    }
+
+    .fw-row {
+      display: flex;
+      justify-content: center;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    .fw-chip {
+      font-size: 0.9rem;
+      font-weight: 600;
+      color: var(--text-soft);
+      padding: 8px 18px;
+      border-radius: 999px;
+      border: 1px solid var(--border);
+      background: var(--surface);
+    }
+
+    /* ---------- Signup ---------- */
+    .signup {
+      position: relative;
+      z-index: 2;
+      padding: 64px 0 96px;
+    }
+
+    .signup-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 24px;
+      padding: 48px;
+      max-width: 640px;
+      margin: 0 auto;
+      box-shadow: 0 30px 70px rgba(14, 27, 42, 0.1);
+    }
+
+    .signup-card h2 {
+      font-size: clamp(1.6rem, 3.5vw, 2.1rem);
+      letter-spacing: -0.02em;
+      text-align: center;
+      margin-bottom: 8px;
+    }
+
+    .signup-card .sub {
+      text-align: center;
+      color: var(--text-soft);
+      margin-bottom: 32px;
+    }
+
+    .field {
+      margin-bottom: 18px;
+    }
+
+    .field label {
+      display: block;
+      font-size: 0.82rem;
+      font-weight: 700;
+      color: var(--text-soft);
+      margin-bottom: 7px;
+    }
+
+    .field label .req {
+      color: var(--brand);
+    }
+
+    .field input,
+    .field select,
+    .field textarea {
+      width: 100%;
+      font-family: inherit;
+      font-size: 0.95rem;
+      color: var(--text);
+      background: var(--bg);
+      border: 1px solid var(--border-strong);
+      border-radius: 10px;
+      padding: 12px 14px;
+      transition:
+        border-color 0.15s,
+        box-shadow 0.15s;
+    }
+
+    .field textarea {
+      resize: vertical;
+      min-height: 84px;
+    }
+
+    .field input::placeholder,
+    .field textarea::placeholder {
+      color: var(--text-faint);
+    }
+
+    .field input:focus,
+    .field select:focus,
+    .field textarea:focus {
+      outline: none;
+      border-color: var(--brand);
+      box-shadow: 0 0 0 3px var(--brand-glow);
+    }
+
+    .field select {
+      appearance: none;
+      cursor: pointer;
+      background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='14' height='14' viewBox='0 0 24 24' fill='none' stroke='%238593a6' stroke-width='2'><polyline points='6 9 12 15 18 9'/></svg>");
+      background-repeat: no-repeat;
+      background-position: right 14px center;
+      padding-right: 40px;
+    }
+
+    .row-2 {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+    }
+
+    .field .error-msg {
+      display: none;
+      color: var(--danger);
+      font-size: 0.78rem;
+      margin-top: 6px;
+    }
+
+    .field.invalid input,
+    .field.invalid select {
+      border-color: var(--danger);
+    }
+
+    .field.invalid .error-msg {
+      display: block;
+    }
+
+    .submit-btn {
+      width: 100%;
+      font-size: 1rem;
+      font-weight: 700;
+      color: #fff;
+      background: linear-gradient(135deg, var(--brand), var(--brand-dark));
+      border: none;
+      border-radius: 12px;
+      padding: 15px;
+      margin-top: 8px;
+      cursor: pointer;
+      box-shadow: 0 12px 30px var(--brand-glow);
+      transition:
+        transform 0.15s,
+        box-shadow 0.2s,
+        opacity 0.2s;
+    }
+
+    .submit-btn:hover:not(:disabled) {
+      transform: translateY(-2px);
+      box-shadow: 0 16px 40px var(--brand-glow);
+    }
+
+    .submit-btn:disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
+    }
+
+    .form-note {
+      text-align: center;
+      font-size: 0.8rem;
+      color: var(--text-faint);
+      margin-top: 16px;
+    }
+
+    .success {
+      display: none;
+      text-align: center;
+      padding: 24px 0;
+    }
+
+    .success .tick {
+      width: 64px;
+      height: 64px;
+      border-radius: 50%;
+      background: rgba(108, 194, 74, 0.12);
+      border: 1px solid rgba(108, 194, 74, 0.4);
+      display: grid;
+      place-items: center;
+      font-size: 30px;
+      margin: 0 auto 18px;
+      color: var(--brand-2);
+    }
+
+    .success h2 {
+      margin-bottom: 8px;
+    }
+
+    .success p {
+      color: var(--text-soft);
+    }
+
+    .signup-card.done .form-body {
+      display: none;
+    }
+
+    .signup-card.done .success {
+      display: block;
+    }
+
+    /* ---------- Footer ---------- */
+    footer {
+      position: relative;
+      z-index: 2;
+      border-top: 1px solid var(--border);
+      padding: 28px 0;
+      text-align: center;
+      color: var(--text-faint);
+      font-size: 1rem;
+    }
+
+    footer a {
+      color: var(--brand-dark);
+      font-weight: 600;
+    }
+
+    /* ---------- Responsive ---------- */
+    @media (max-width: 980px) {
+      .hero-grid {
+        grid-template-columns: 1fr;
+        gap: 22px;
+        text-align: center;
+        padding: 16px 0 44px;
+      }
+
+      .hero-visual {
+        order: -1;
+        max-width: 520px;
+        margin: 0 auto;
+      }
+
+      /* connector becomes a horizontal row of logos */
+      .connector {
+        flex-direction: row;
+        justify-content: center;
+        gap: 16px;
+        padding: 4px 0;
+      }
+
+      .connector-line {
+        top: 50%;
+        bottom: auto;
+        left: 6%;
+        right: 6%;
+        width: auto;
+        height: 2px;
+        transform: translateY(-50%);
+        background: linear-gradient(90deg,
+            transparent,
+            var(--brand) 12%,
+            var(--brand) 88%,
+            transparent);
+      }
+
+      .connector-line::after {
+        animation: travel-x 3.2s linear infinite;
+      }
+
+      @keyframes travel-x {
+        0% {
+          left: 2%;
+          opacity: 0;
+        }
+
+        10% {
+          opacity: 1;
+        }
+
+        90% {
+          opacity: 1;
+        }
+
+        100% {
+          left: 98%;
+          opacity: 0;
+        }
+      }
+
+      .hero-arcs {
+        display: none;
+      }
+
+      .lede {
+        max-width: none;
+        margin-left: auto;
+        margin-right: auto;
+      }
+
+      .cta-group,
+      .hero-meta {
+        justify-content: center;
+      }
+
+      .features {
+        grid-template-columns: 1fr 1fr;
+      }
+    }
+
+    @media (max-width: 620px) {
+      .features {
+        grid-template-columns: 1fr;
+      }
+
+      .arrow {
+        transform: rotate(90deg);
+      }
+
+      .step {
+        max-width: none;
+        flex-basis: 100%;
+      }
+    }
+
+    @media (max-width: 520px) {
+      .signup-card {
+        padding: 30px 22px;
+      }
+
+      .row-2 {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    /* ---------- Modal styles ---------- */
+    .modal-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(14, 27, 42, 0.4);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      z-index: 1000;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity 0.35s cubic-bezier(0.16, 1, 0.3, 1), visibility 0.35s;
+      padding: 40px 20px;
+      overflow-y: auto;
+    }
+
+    .modal-overlay.active {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    .modal-container {
+      position: relative;
+      width: 100%;
+      max-width: 600px;
+      margin: auto;
+      transform: translateY(20px) scale(0.95);
+      transition: transform 0.45s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .modal-overlay.active .modal-container {
+      transform: translateY(0) scale(1);
+    }
+
+    .modal-close {
+      position: absolute;
+      top: 24px;
+      right: 24px;
+      background: var(--bg-soft);
+      border: none;
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      font-size: 20px;
+      line-height: 1;
+      color: var(--text-soft);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: background 0.15s, color 0.15s, transform 0.15s;
+      z-index: 10;
+    }
+
+    .modal-close:hover {
+      background: var(--border-strong);
+      color: var(--text);
+      transform: scale(1.05);
+    }
+
+    body.modal-open {
+      overflow: hidden;
+    }
+  </style>
+</head>
+
+<body>
+  <!-- ===== HERO ===== -->
+  <div class="hero-band">
+    <div class="wrap">
+      <header>
+        <nav class="nav">
+          <a class="logo" href="#">
+            <img src="logo.svg" alt="Paddock" class="logo-img" />
+          </a>
+          <a class="nav-cta" href="#join">Join the Beta</a>
+        </nav>
+      </header>
+
+      <div class="hero-grid">
+        <!-- Illustration -->
+        <div class="hero-visual">
+          <img class="hero-illustration" src="hero.png"
+            alt="Paddock by Spritle — self-hosted, open-source mobile CI/CD connecting GitHub Actions, Android, Xcode Cloud and the App Store across the build, sign, test and release pipeline"
+            onerror="
+                this.style.display = 'none';
+                this.nextElementSibling.style.display = 'grid';
+              " />
+          <div class="img-placeholder">
+            <div>
+              <strong>Hero image goes here</strong> Save the illustration as
+              <code>hero.png</code> in this folder.
+            </div>
+          </div>
+        </div>
+
+        <!-- Copy -->
+        <div class="hero-copy">
+          <span class="badge"><span class="dot"></span> Open Source · Self Hosted · Beta</span>
+          <h1>
+            Mobile CI/CD<br />
+            <span class="grad">That Just Works</span>
+          </h1>
+          <p class="lede">
+            Build, sign, test, and distribute iOS and Android apps from your
+            own infrastructure.
+          </p>
+          <p class="lede tight">No cloud lock-in.</p>
+          <div class="cta-group">
+            <a class="hero-cta" href="#">Join the Beta →</a>
+            <a class="demo-cta" href="#"><span class="play">▶</span> Watch Demo</a>
+          </div>
+          <!--<div class="hero-meta">
+              <span><span class="check">✓</span> Self-hosted</span>
+              <span><span class="check">✓</span> Open source</span>
+              <span><span class="check">✓</span> No infra to manage</span>
+            </div>-->
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <footer>
+    © 2026 Paddock — Made with ❤️ & Open Source by
+    <a href="#">Spritle Software</a>
+  </footer>
+
+  <!-- ===== BETA SIGNUP MODAL ===== -->
+  <div id="betaModal" class="modal-overlay">
+    <div class="modal-container">
+      <button class="modal-close" id="closeModalBtn" aria-label="Close modal">&times;</button>
+      <div class="signup-card" id="signupCard">
+        <div class="form-body">
+          <h2>Join the Beta</h2>
+          <p class="sub">Get early access to Paddock.</p>
+          <form id="betaForm">
+            <div class="field">
+              <label for="name">Name <span class="req">*</span></label>
+              <input type="text" id="name" placeholder="John Doe" required />
+              <div class="error-msg">Please enter your name</div>
+            </div>
+
+            <div class="row-2">
+              <div class="field">
+                <label for="email">Email <span class="req">*</span></label>
+                <input type="email" id="email" placeholder="john@company.com" required />
+                <div class="error-msg">Please enter a valid email address</div>
+              </div>
+              <div class="field">
+                <label for="company">Company</label>
+                <input type="text" id="company" placeholder="Spritle Software" />
+              </div>
+            </div>
+
+            <div class="field">
+              <label for="framework">Primary Mobile Framework <span class="req">*</span></label>
+              <select id="framework" required>
+                <option value="" disabled selected>Select your framework</option>
+                <option value="React Native">React Native</option>
+                <option value="Flutter">Flutter</option>
+                <option value="Native iOS">Native iOS</option>
+                <option value="Native Android">Native Android</option>
+              </select>
+              <div class="error-msg">Please select a mobile framework</div>
+            </div>
+
+            <div class="field">
+              <label for="process">Current Build Process</label>
+              <textarea id="process"
+                placeholder="Describe your current build and CI/CD workflow (e.g., manual Xcode builds, Fastlane, GitHub Actions...)"></textarea>
+            </div>
+
+            <button type="submit" id="submitBtn" class="submit-btn">Submit Request</button>
+            <p class="form-note">By joining, you'll receive updates about our beta release.</p>
+          </form>
+        </div>
+        <div class="success">
+          <div class="tick">✓</div>
+          <h2>Request Submitted!</h2>
+          <p>Thank you for your interest. We'll be in touch soon with access details.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== DEMO VIDEO MODAL ===== -->
+  <div id="demoModal" class="modal-overlay">
+    <div class="modal-container" style="max-width: 800px;">
+      <button class="modal-close" id="closeDemoBtn" aria-label="Close demo modal">&times;</button>
+      <div
+        style="background: #000; border-radius: 18px; overflow: hidden; border: 1px solid var(--border); box-shadow: 0 30px 70px rgba(14, 27, 42, 0.25);">
+        <div style="position: relative; padding-bottom: 56.25%; height: 0; width: 100%;">
+          <video id="demoVideoPlayer" controls
+            style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: contain;"></video>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- EmailJS SDK -->
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+
+  <script>
+    (function () {
+      // EmailJS Configuration
+      // IMPORTANT: Replace these with your actual EmailJS credentials
+      const EMAILJS_PUBLIC_KEY = "xD_Ck1yRy8pcMLQBY"; // e.g. "user_xxxxxxxxxxxx"
+      const EMAILJS_SERVICE_ID = "service_2pq4ebm"; // e.g. "service_default"
+      const EMAILJS_TEMPLATE_ID = "template_5e21e0a"; // e.g. "template_xxxxxxx"
+
+      const modal = document.getElementById("betaModal");
+      const closeBtn = document.getElementById("closeModalBtn");
+      const ctaButtons = document.querySelectorAll(".nav-cta, .hero-cta");
+
+      const demoModal = document.getElementById("demoModal");
+      const closeDemoBtn = document.getElementById("closeDemoBtn");
+      const demoCta = document.querySelector(".demo-cta");
+      const videoPlayer = document.getElementById("demoVideoPlayer");
+
+      const form = document.getElementById("betaForm");
+      if (!form) return;
+      const card = document.getElementById("signupCard");
+      const submitBtn = document.getElementById("submitBtn");
+
+      // Modal Control Functions
+      const openModal = () => {
+        modal.classList.add("active");
+        document.body.classList.add("modal-open");
+      };
+
+      const closeModal = () => {
+        modal.classList.remove("active");
+        document.body.classList.remove("modal-open");
+        // Reset form on close if not submitted successfully
+        if (!card.classList.contains("done")) {
+          form.reset();
+          // Remove all invalid classes
+          form.querySelectorAll(".field").forEach(field => field.classList.remove("invalid"));
+        }
+      };
+
+      const openDemo = () => {
+        videoPlayer.src = "Spritle Paddock - Engineering Portal (Window).mp4";
+        demoModal.classList.add("active");
+        document.body.classList.add("modal-open");
+        videoPlayer.play().catch(err => console.log("Autoplay blocked:", err));
+      };
+
+      const closeDemo = () => {
+        demoModal.classList.remove("active");
+        document.body.classList.remove("modal-open");
+        videoPlayer.pause();
+        videoPlayer.src = "";
+        videoPlayer.load();
+      };
+
+      // Event Listeners for Modal
+      ctaButtons.forEach(btn => {
+        btn.addEventListener("click", (e) => {
+          e.preventDefault();
+          openModal();
+        });
+      });
+
+      if (closeBtn) {
+        closeBtn.addEventListener("click", closeModal);
+      }
+
+      modal.addEventListener("click", (e) => {
+        if (e.target === modal) {
+          closeModal();
+        }
+      });
+
+      // Event Listeners for Demo Modal
+      if (demoCta) {
+        demoCta.addEventListener("click", (e) => {
+          e.preventDefault();
+          openDemo();
+        });
+      }
+
+      if (closeDemoBtn) {
+        closeDemoBtn.addEventListener("click", closeDemo);
+      }
+
+      demoModal.addEventListener("click", (e) => {
+        if (e.target === demoModal) {
+          closeDemo();
+        }
+      });
+
+      document.addEventListener("keydown", (e) => {
+        if (e.key === "Escape") {
+          if (modal.classList.contains("active")) {
+            closeModal();
+          }
+          if (demoModal.classList.contains("active")) {
+            closeDemo();
+          }
+        }
+      });
+
+      const setError = (id, on) =>
+        document
+          .getElementById(id)
+          .closest(".field")
+          .classList.toggle("invalid", on);
+      const isEmail = (v) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v.trim());
+
+      form.addEventListener("submit", function (e) {
+        e.preventDefault();
+        const name = document.getElementById("name").value.trim();
+        const email = document.getElementById("email").value.trim();
+        const framework = document.getElementById("framework").value;
+        let ok = true;
+        setError("name", !name);
+        if (!name) ok = false;
+        setError("email", !isEmail(email));
+        if (!isEmail(email)) ok = false;
+        setError("framework", !framework);
+        if (!framework) ok = false;
+        if (!ok) return;
+
+        const payload = {
+          name,
+          email,
+          company: document.getElementById("company").value.trim(),
+          framework,
+          process: document.getElementById("process").value.trim(),
+          submittedAt: new Date().toISOString(),
+        };
+
+        try {
+          const key = "paddock_beta_signups";
+          const all = JSON.parse(localStorage.getItem(key) || "[]");
+          all.push(payload);
+          localStorage.setItem(key, JSON.stringify(all));
+        } catch (_) { }
+        console.log("Beta signup captured:", payload);
+
+        submitBtn.disabled = true;
+        submitBtn.textContent = "Sending...";
+
+        // If EmailJS is not configured, simulate submission for testing
+        if (EMAILJS_PUBLIC_KEY === "YOUR_PUBLIC_KEY" || !EMAILJS_PUBLIC_KEY) {
+          console.warn("EmailJS is not configured. Simulating email submission.");
+          setTimeout(() => {
+            card.classList.add("done");
+            submitBtn.disabled = false;
+            submitBtn.textContent = "Submit Request";
+          }, 1000);
+          return;
+        }
+
+        // Initialize and send via EmailJS
+        emailjs.init({
+          publicKey: EMAILJS_PUBLIC_KEY,
+        });
+
+        const messageBody = `Name: ${payload.name}
+          Email: ${payload.email}
+          Company: ${payload.company || "Not provided"}
+          Framework: ${payload.framework}
+          Current Build Process: ${payload.process || "Not provided"}`;
+
+        const templateParams = {
+          name: payload.name,
+          title: "Paddock Beta Signup Request",
+          time: new Date().toLocaleString(),
+          message: messageBody,
+          email: payload.email
+        };
+
+        emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, templateParams)
+          .then((response) => {
+            console.log("SUCCESS!", response.status, response.text);
+            card.classList.add("done");
+            submitBtn.disabled = false;
+            submitBtn.textContent = "Submit Request";
+          })
+          .catch((error) => {
+            console.error("FAILED...", error);
+            alert("Failed to send submission. Please try again.");
+            submitBtn.disabled = false;
+            submitBtn.textContent = "Submit Request";
+          });
+      });
+
+      ["name", "email", "framework"].forEach((id) => {
+        document
+          .getElementById(id)
+          .addEventListener("input", () => setError(id, false));
+        document
+          .getElementById(id)
+          .addEventListener("change", () => setError(id, false));
+      });
+    })();
+  </script>
+</body>
+
+</html>
