@@ -1,0 +1,769 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Unwaste Insights</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500..800&family=DM+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&family=Noto+Sans+Kannada:wght@400;500&display=swap">
+<style>
+/* Leaflet 1.9.4 */
+.leaflet-image-layer,.leaflet-layer,.leaflet-marker-icon,.leaflet-marker-shadow,.leaflet-pane,.leaflet-pane>canvas,.leaflet-pane>svg,.leaflet-tile,.leaflet-tile-container,.leaflet-zoom-box{position:absolute;left:0;top:0}.leaflet-container{overflow:hidden}.leaflet-marker-icon,.leaflet-marker-shadow,.leaflet-tile{-webkit-user-select:none;-moz-user-select:none;user-select:none;-webkit-user-drag:none}.leaflet-tile::selection{background:0 0}.leaflet-safari .leaflet-tile{image-rendering:-webkit-optimize-contrast}.leaflet-safari .leaflet-tile-container{width:1600px;height:1600px;-webkit-transform-origin:0 0}.leaflet-marker-icon,.leaflet-marker-shadow{display:block}.leaflet-container .leaflet-overlay-pane svg{max-width:none!important;max-height:none!important}.leaflet-container .leaflet-marker-pane img,.leaflet-container .leaflet-shadow-pane img,.leaflet-container .leaflet-tile,.leaflet-container .leaflet-tile-pane img,.leaflet-container img.leaflet-image-layer{max-width:none!important;max-height:none!important;width:auto;padding:0}.leaflet-container img.leaflet-tile{mix-blend-mode:plus-lighter}.leaflet-container.leaflet-touch-zoom{-ms-touch-action:pan-x pan-y;touch-action:pan-x pan-y}.leaflet-container.leaflet-touch-drag{-ms-touch-action:pinch-zoom;touch-action:none;touch-action:pinch-zoom}.leaflet-container.leaflet-touch-drag.leaflet-touch-zoom{-ms-touch-action:none;touch-action:none}.leaflet-container{-webkit-tap-highlight-color:transparent}.leaflet-container a{-webkit-tap-highlight-color:rgba(51,181,229,.4)}.leaflet-tile{filter:inherit;visibility:hidden}.leaflet-tile-loaded{visibility:inherit}.leaflet-zoom-box{width:0;height:0;-moz-box-sizing:border-box;box-sizing:border-box;z-index:800}.leaflet-overlay-pane svg{-moz-user-select:none}.leaflet-pane{z-index:400}.leaflet-tile-pane{z-index:200}.leaflet-overlay-pane{z-index:400}.leaflet-shadow-pane{z-index:500}.leaflet-marker-pane{z-index:600}.leaflet-tooltip-pane{z-index:650}.leaflet-popup-pane{z-index:700}.leaflet-map-pane canvas{z-index:100}.leaflet-map-pane svg{z-index:200}.leaflet-vml-shape{width:1px;height:1px}.lvml{behavior:url(#default#VML);display:inline-block;position:absolute}.leaflet-control{position:relative;z-index:800;pointer-events:visiblePainted;pointer-events:auto}.leaflet-bottom,.leaflet-top{position:absolute;z-index:1000;pointer-events:none}.leaflet-top{top:0}.leaflet-right{right:0}.leaflet-bottom{bottom:0}.leaflet-left{left:0}.leaflet-control{float:left;clear:both}.leaflet-right .leaflet-control{float:right}.leaflet-top .leaflet-control{margin-top:10px}.leaflet-bottom .leaflet-control{margin-bottom:10px}.leaflet-left .leaflet-control{margin-left:10px}.leaflet-right .leaflet-control{margin-right:10px}.leaflet-fade-anim .leaflet-popup{opacity:0;-webkit-transition:opacity .2s linear;-moz-transition:opacity .2s linear;transition:opacity .2s linear}.leaflet-fade-anim .leaflet-map-pane .leaflet-popup{opacity:1}.leaflet-zoom-animated{-webkit-transform-origin:0 0;-ms-transform-origin:0 0;transform-origin:0 0}svg.leaflet-zoom-animated{will-change:transform}.leaflet-zoom-anim .leaflet-zoom-animated{-webkit-transition:-webkit-transform .25s cubic-bezier(0,0,.25,1);-moz-transition:-moz-transform .25s cubic-bezier(0,0,.25,1);transition:transform .25s cubic-bezier(0,0,.25,1)}.leaflet-pan-anim .leaflet-tile,.leaflet-zoom-anim .leaflet-tile{-webkit-transition:none;-moz-transition:none;transition:none}.leaflet-zoom-anim .leaflet-zoom-hide{visibility:hidden}.leaflet-interactive{cursor:pointer}.leaflet-grab{cursor:-webkit-grab;cursor:-moz-grab;cursor:grab}.leaflet-crosshair,.leaflet-crosshair .leaflet-interactive{cursor:crosshair}.leaflet-control,.leaflet-popup-pane{cursor:auto}.leaflet-dragging .leaflet-grab,.leaflet-dragging .leaflet-grab .leaflet-interactive,.leaflet-dragging .leaflet-marker-draggable{cursor:move;cursor:-webkit-grabbing;cursor:-moz-grabbing;cursor:grabbing}.leaflet-image-layer,.leaflet-marker-icon,.leaflet-marker-shadow,.leaflet-pane>svg path,.leaflet-tile-container{pointer-events:none}.leaflet-image-layer.leaflet-interactive,.leaflet-marker-icon.leaflet-interactive,.leaflet-pane>svg path.leaflet-interactive,svg.leaflet-image-layer.leaflet-interactive path{pointer-events:visiblePainted;pointer-events:auto}.leaflet-container{background:#ddd;outline-offset:1px}.leaflet-container a{color:#0078a8}.leaflet-zoom-box{border:2px dotted #38f;background:rgba(255,255,255,.5)}.leaflet-container{font-family:"Helvetica Neue",Arial,Helvetica,sans-serif;font-size:12px;font-size:.75rem;line-height:1.5}.leaflet-bar{box-shadow:0 1px 5px rgba(0,0,0,.65);border-radius:4px}.leaflet-bar a{background-color:#fff;border-bottom:1px solid #ccc;width:26px;height:26px;line-height:26px;display:block;text-align:center;text-decoration:none;color:#000}.leaflet-bar a,.leaflet-control-layers-toggle{background-position:50% 50%;background-repeat:no-repeat;display:block}.leaflet-bar a:focus,.leaflet-bar a:hover{background-color:#f4f4f4}.leaflet-bar a:first-child{border-top-left-radius:4px;border-top-right-radius:4px}.leaflet-bar a:last-child{border-bottom-left-radius:4px;border-bottom-right-radius:4px;border-bottom:none}.leaflet-bar a.leaflet-disabled{cursor:default;background-color:#f4f4f4;color:#bbb}.leaflet-touch .leaflet-bar a{width:30px;height:30px;line-height:30px}.leaflet-touch .leaflet-bar a:first-child{border-top-left-radius:2px;border-top-right-radius:2px}.leaflet-touch .leaflet-bar a:last-child{border-bottom-left-radius:2px;border-bottom-right-radius:2px}.leaflet-control-zoom-in,.leaflet-control-zoom-out{font:bold 18px 'Lucida Console',Monaco,monospace;text-indent:1px}.leaflet-touch .leaflet-control-zoom-in,.leaflet-touch .leaflet-control-zoom-out{font-size:22px}.leaflet-control-layers{box-shadow:0 1px 5px rgba(0,0,0,.4);background:#fff;border-radius:5px}.leaflet-control-layers-toggle{background-image:url(images/layers.png);width:36px;height:36px}.leaflet-retina .leaflet-control-layers-toggle{background-image:url(images/layers-2x.png);background-size:26px 26px}.leaflet-touch .leaflet-control-layers-toggle{width:44px;height:44px}.leaflet-control-layers .leaflet-control-layers-list,.leaflet-control-layers-expanded .leaflet-control-layers-toggle{display:none}.leaflet-control-layers-expanded .leaflet-control-layers-list{display:block;position:relative}.leaflet-control-layers-expanded{padding:6px 10px 6px 6px;color:#333;background:#fff}.leaflet-control-layers-scrollbar{overflow-y:scroll;overflow-x:hidden;padding-right:5px}.leaflet-control-layers-selector{margin-top:2px;position:relative;top:1px}.leaflet-control-layers label{display:block;font-size:13px;font-size:1.08333em}.leaflet-control-layers-separator{height:0;border-top:1px solid #ddd;margin:5px -10px 5px -6px}.leaflet-default-icon-path{background-image:url(images/marker-icon.png)}.leaflet-container .leaflet-control-attribution{background:#fff;background:rgba(255,255,255,.8);margin:0}.leaflet-control-attribution,.leaflet-control-scale-line{padding:0 5px;color:#333;line-height:1.4}.leaflet-control-attribution a{text-decoration:none}.leaflet-control-attribution a:focus,.leaflet-control-attribution a:hover{text-decoration:underline}.leaflet-attribution-flag{display:inline!important;vertical-align:baseline!important;width:1em;height:.6669em}.leaflet-left .leaflet-control-scale{margin-left:5px}.leaflet-bottom .leaflet-control-scale{margin-bottom:5px}.leaflet-control-scale-line{border:2px solid #777;border-top:none;line-height:1.1;padding:2px 5px 1px;white-space:nowrap;-moz-box-sizing:border-box;box-sizing:border-box;background:rgba(255,255,255,.8);text-shadow:1px 1px #fff}.leaflet-control-scale-line:not(:first-child){border-top:2px solid #777;border-bottom:none;margin-top:-2px}.leaflet-control-scale-line:not(:first-child):not(:last-child){border-bottom:2px solid #777}.leaflet-touch .leaflet-bar,.leaflet-touch .leaflet-control-attribution,.leaflet-touch .leaflet-control-layers{box-shadow:none}.leaflet-touch .leaflet-bar,.leaflet-touch .leaflet-control-layers{border:2px solid rgba(0,0,0,.2);background-clip:padding-box}.leaflet-popup{position:absolute;text-align:center;margin-bottom:20px}.leaflet-popup-content-wrapper{padding:1px;text-align:left;border-radius:12px}.leaflet-popup-content{margin:13px 24px 13px 20px;line-height:1.3;font-size:13px;font-size:1.08333em;min-height:1px}.leaflet-popup-content p{margin:17px 0;margin:1.3em 0}.leaflet-popup-tip-container{width:40px;height:20px;position:absolute;left:50%;margin-top:-1px;margin-left:-20px;overflow:hidden;pointer-events:none}.leaflet-popup-tip{width:17px;height:17px;padding:1px;margin:-10px auto 0;pointer-events:auto;-webkit-transform:rotate(45deg);-moz-transform:rotate(45deg);-ms-transform:rotate(45deg);transform:rotate(45deg)}.leaflet-popup-content-wrapper,.leaflet-popup-tip{background:#fff;color:#333;box-shadow:0 3px 14px rgba(0,0,0,.4)}.leaflet-container a.leaflet-popup-close-button{position:absolute;top:0;right:0;border:none;text-align:center;width:24px;height:24px;font:16px/24px Tahoma,Verdana,sans-serif;color:#757575;text-decoration:none;background:0 0}.leaflet-container a.leaflet-popup-close-button:focus,.leaflet-container a.leaflet-popup-close-button:hover{color:#585858}.leaflet-popup-scrolled{overflow:auto}.leaflet-oldie .leaflet-popup-content-wrapper{-ms-zoom:1}.leaflet-oldie .leaflet-popup-tip{width:24px;margin:0 auto}.leaflet-oldie .leaflet-control-layers,.leaflet-oldie .leaflet-control-zoom,.leaflet-oldie .leaflet-popup-content-wrapper,.leaflet-oldie .leaflet-popup-tip{border:1px solid #999}.leaflet-div-icon{background:#fff;border:1px solid #666}.leaflet-tooltip{position:absolute;padding:6px;background-color:#fff;border:1px solid #fff;border-radius:3px;color:#222;white-space:nowrap;-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none;pointer-events:none;box-shadow:0 1px 3px rgba(0,0,0,.4)}.leaflet-tooltip.leaflet-interactive{cursor:pointer;pointer-events:auto}.leaflet-tooltip-bottom:before,.leaflet-tooltip-left:before,.leaflet-tooltip-right:before,.leaflet-tooltip-top:before{position:absolute;pointer-events:none;border:6px solid transparent;background:0 0;content:""}.leaflet-tooltip-bottom{margin-top:6px}.leaflet-tooltip-top{margin-top:-6px}.leaflet-tooltip-bottom:before,.leaflet-tooltip-top:before{left:50%;margin-left:-6px}.leaflet-tooltip-top:before{bottom:0;margin-bottom:-12px;border-top-color:#fff}.leaflet-tooltip-bottom:before{top:0;margin-top:-12px;margin-left:-6px;border-bottom-color:#fff}.leaflet-tooltip-left{margin-left:-6px}.leaflet-tooltip-right{margin-left:6px}.leaflet-tooltip-left:before,.leaflet-tooltip-right:before{top:50%;margin-top:-6px}.leaflet-tooltip-left:before{right:0;margin-right:-12px;border-left-color:#fff}.leaflet-tooltip-right:before{left:0;margin-left:-12px;border-right-color:#fff}@media print{.leaflet-control{-webkit-print-color-adjust:exact;print-color-adjust:exact}}
+:root{
+  --bg:#ECF2F0;--surface:#FFFFFF;--surface-2:#F4F8F7;--line:#DBE4E1;--ink:#0E2B2D;--ink-2:#465F60;--ink-3:#6F8688;
+  --brand:#00A85A;--brand-ink:#047140;--brand-soft:#DDF3E5;--on-brand:#FFFFFF;
+  --c1:#00A85A;--c2:#3E7CB1;--c3:#DE9A17;--c4:#D9603B;--c5:#7F63B3;--c6:#7C8B8D;
+  --good:#12803F;--warn:#B77500;--bad:#C8392E;
+  --hero-a:#062E1D;--hero-b:#0A4A2B;--shadow:0 1px 2px rgba(14,43,45,.05),0 8px 24px -12px rgba(14,43,45,.18);
+  --display:'Bricolage Grotesque','DM Sans',system-ui,sans-serif;--body:'DM Sans',system-ui,-apple-system,'Segoe UI',sans-serif;--mono:'IBM Plex Mono',ui-monospace,Consolas,monospace;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .brand .bp{background:#fff;padding:8px 10px}}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --bg:#081415;--surface:#0F2122;--surface-2:#132A2B;--line:#20393A;--ink:#E5F2EF;--ink-2:#A3BDBA;--ink-3:#78918F;
+  --brand:#2FD183;--brand-ink:#86EFBB;--brand-soft:#0E3826;--on-brand:#04240F;
+  --c1:#2FD183;--c2:#6BA4DB;--c3:#F0B94A;--c4:#F0805E;--c5:#AB93D6;--c6:#93A5A6;
+  --good:#4CC983;--warn:#F0B94A;--bad:#F27B70;--hero-a:#083320;--hero-b:#0B4A2E;--shadow:0 8px 24px -12px rgba(0,0,0,.6);}}
+:root[data-theme="dark"]{
+  --bg:#081415;--surface:#0F2122;--surface-2:#132A2B;--line:#20393A;--ink:#E5F2EF;--ink-2:#A3BDBA;--ink-3:#78918F;
+  --brand:#2FD183;--brand-ink:#86EFBB;--brand-soft:#0E3826;--on-brand:#04240F;
+  --c1:#2FD183;--c2:#6BA4DB;--c3:#F0B94A;--c4:#F0805E;--c5:#AB93D6;--c6:#93A5A6;
+  --good:#4CC983;--warn:#F0B94A;--bad:#F27B70;--hero-a:#083320;--hero-b:#0B4A2E;--shadow:0 8px 24px -12px rgba(0,0,0,.6);}
+
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--ink);font:14px/1.5 var(--body);font-variant-numeric:tabular-nums;-webkit-font-smoothing:antialiased}
+button,select,input{font:inherit;color:inherit}
+button{cursor:pointer}
+:focus-visible{outline:2px solid var(--brand);outline-offset:2px}
+h1,h2,h3,p{margin:0}
+h1,h2,h3,.disp{font-family:var(--display);letter-spacing:-.02em;text-wrap:balance}
+
+.app{display:grid;grid-template-columns:224px minmax(0,1fr);min-height:100vh}
+.rail{position:sticky;top:env(safe-area-inset-top,0px);align-self:start;height:100vh;display:flex;flex-direction:column;gap:6px;padding:20px 14px 16px;overflow-y:auto;overscroll-behavior:contain;background:var(--surface);border-right:1px solid var(--line)}
+.logo{display:flex;align-items:center;gap:10px;padding:2px 8px 18px}
+.logo .mk{width:38px;height:38px;display:grid;place-items:center;flex:none}
+.logo .mk img{width:100%;height:auto;display:block}
+.brand{margin-top:12px;display:flex;flex-direction:column;align-items:flex-start;gap:7px}
+.brand .bl{font:500 10px var(--mono);letter-spacing:.09em;text-transform:uppercase;color:var(--ink-3)}
+.brand .bp{display:inline-block;width:fit-content;border-radius:10px;padding:2px;line-height:0}
+.brand img{display:block;width:118px;max-width:100%;height:auto}
+:root[data-theme="dark"] .brand .bp{background:#fff;padding:8px 10px}
+.logo b{font:700 20px var(--display);letter-spacing:-.03em}
+.logo small{display:block;font:500 10px var(--mono);color:var(--ink-3);letter-spacing:.08em;text-transform:uppercase;margin-top:-3px}
+.nav-l{font:500 10px var(--mono);letter-spacing:.1em;text-transform:uppercase;color:var(--ink-3);padding:10px 10px 4px}
+.nav{display:flex;flex-direction:column;gap:2px}
+.nb{display:flex;align-items:center;gap:11px;width:100%;text-align:left;padding:9px 10px;border:0;border-radius:10px;background:none;color:var(--ink-2);font-weight:500}
+.nb svg{flex:none;opacity:.8}
+.nb:hover{background:var(--surface-2);color:var(--ink)}
+.nb[aria-current=page]{background:var(--brand-soft);color:var(--brand-ink);font-weight:600}
+.nb[aria-current=page] svg{opacity:1}
+.nb kbd{margin-left:auto;font:500 10px var(--mono);color:var(--ink-3);border:1px solid var(--line);border-radius:5px;padding:0 5px}
+.rail-foot{margin-top:auto;padding:12px;border-radius:12px;background:var(--surface-2);font-size:12px;color:var(--ink-2)}
+.rail-foot b{display:flex;align-items:center;gap:7px;color:var(--ink);font-weight:600;margin-bottom:2px}
+.live{width:8px;height:8px;border-radius:50%;background:var(--good);box-shadow:0 0 0 0 var(--good);animation:pulse 2.4s infinite}
+@keyframes pulse{0%{box-shadow:0 0 0 0 color-mix(in srgb,var(--good) 50%,transparent)}70%,100%{box-shadow:0 0 0 8px transparent}}
+
+main{min-width:0;padding:0 28px 56px}
+.top{position:sticky;top:env(safe-area-inset-top,0px);z-index:6;display:flex;flex-wrap:wrap;align-items:flex-end;justify-content:space-between;gap:14px;padding:22px 0 14px;background:color-mix(in srgb,var(--bg) 90%,transparent);backdrop-filter:blur(10px)}
+.top h1{font-size:30px;line-height:1.1;font-weight:700}
+.top p{color:var(--ink-2);margin-top:4px;max-width:60ch}
+.ctl{display:flex;flex-wrap:wrap;gap:10px;align-items:center}
+.seg{display:inline-flex;padding:3px;border-radius:11px;background:var(--surface);border:1px solid var(--line)}
+.seg button{border:0;background:none;padding:5px 12px;border-radius:8px;font:500 12.5px var(--mono);color:var(--ink-2)}
+.seg button:hover{color:var(--ink)}
+.seg button[aria-pressed=true]{background:var(--brand);color:var(--on-brand)}
+.sel{appearance:none;padding:8px 32px 8px 12px;border-radius:11px;border:1px solid var(--line);background:var(--surface) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%236F8688' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E") no-repeat right 11px center;font-weight:500}
+.ib{display:grid;place-items:center;width:36px;height:36px;border-radius:11px;border:1px solid var(--line);background:var(--surface);color:var(--ink-2)}
+.ib:hover{color:var(--ink)}
+
+#view{animation:enter .35s ease both}
+@keyframes enter{from{opacity:.35;transform:translateY(8px)}}
+.grid{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));gap:16px;margin-top:16px}
+.s4{grid-column:span 4}.s5{grid-column:span 5}.s6{grid-column:span 6}.s7{grid-column:span 7}.s8{grid-column:span 8}.s12{grid-column:span 12}
+.panel{display:flex;flex-direction:column;background:var(--surface);border:1px solid var(--line);border-radius:16px;padding:18px 20px 0;min-width:0}
+.ph{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:flex-start;gap:12px;margin-bottom:14px}
+.ph h3{font-size:17px;font-weight:650}
+.ph p{color:var(--ink-3);font-size:12.5px;margin-top:2px}
+.pb{flex:1;min-width:0}
+.pv{display:flex;gap:9px;align-items:flex-start;margin:16px -20px 0;padding:11px 20px;border-top:1px dashed var(--line);font-size:12.5px;color:var(--ink-2);background:var(--surface-2);border-radius:0 0 16px 16px}
+.pv svg{flex:none;margin-top:2px;color:var(--brand)}
+.pv b{color:var(--brand-ink);font-weight:600}
+
+.hero{margin-top:6px;display:grid;grid-template-columns:minmax(0,5fr) minmax(0,7fr);gap:28px;padding:26px 28px 18px;border-radius:22px;color:#EAF7F4;background:radial-gradient(120% 140% at 0% 0%,var(--hero-b),var(--hero-a));box-shadow:var(--shadow);--ink:#EAF7F4;--ink-2:#B4D0CC;--ink-3:#84A9A5;--line:rgba(255,255,255,.12);--c1:#2FD183;--c2:#6BA4DB;--c3:#F0B94A;--c4:#F0805E;overflow:hidden}
+.hero>div{min-width:0}
+.rail{scrollbar-width:none}.rail::-webkit-scrollbar{display:none}
+.hero .eyebrow{font:500 11px var(--mono);letter-spacing:.1em;text-transform:uppercase;color:var(--ink-3);display:flex;align-items:center;gap:8px}
+.hero{position:relative;row-gap:22px}
+.hero::before{content:"";position:absolute;right:-140px;top:-170px;width:520px;height:520px;border-radius:50%;background:repeating-radial-gradient(circle,rgba(255,255,255,.055) 0 1px,transparent 1px 24px);pointer-events:none}
+.hero>*{position:relative}
+.hero .hl{font-size:clamp(28px,3.2vw,44px);line-height:1.06;font-weight:700;letter-spacing:-.035em;color:#fff;margin:14px 0 6px;max-width:15ch}
+.hero .hl span{color:#F6C863}
+.hero .big{font:700 clamp(46px,5.4vw,76px)/1 var(--display);letter-spacing:-.05em;margin:14px 0 10px}
+.proofs{grid-column:1/-1;display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:1px;background:rgba(255,255,255,.14);border-radius:16px;overflow:hidden}
+.pf{display:flex;flex-direction:column;gap:3px;padding:14px 18px 16px;background:rgba(5,30,31,.62);text-align:left;border:0;color:inherit}
+.pf .l{font:500 10.5px var(--mono);letter-spacing:.08em;text-transform:uppercase;color:var(--ink-3)}
+.pf .v{font:700 30px/1.1 var(--display);letter-spacing:-.03em;color:#fff;margin-top:4px}
+.pf .v small{font-size:14px;color:var(--ink-2);font-weight:600}
+.pf .sub{font-size:12px;color:var(--ink-2)}
+.pf .bar{display:block;height:5px;border-radius:4px;background:rgba(255,255,255,.14);margin-top:8px;overflow:hidden}
+.pf .bar i{display:block;height:100%;border-radius:4px;background:#4FE39D;transform-origin:left;animation:grow .9s cubic-bezier(.2,.7,.2,1) both}
+.pf.hot{background:linear-gradient(135deg,rgba(246,200,99,.30),rgba(246,200,99,.08)),rgba(5,30,31,.62)}
+.pf.hot .v{color:#F6C863}
+.pf.hot .sub{color:#F6C863;font-weight:600}
+.pf.hot:hover{background:linear-gradient(135deg,rgba(246,200,99,.4),rgba(246,200,99,.12)),rgba(5,30,31,.62)}
+.feed{grid-column:1/-1;display:flex;align-items:center;gap:10px;font:400 12.5px var(--mono);color:var(--ink-2);min-width:0}
+.feed .fl{color:var(--ink-3);text-transform:uppercase;letter-spacing:.08em;font-size:10.5px;flex:none}
+.feed .ft{color:#D5EBE7;min-width:0;overflow-wrap:anywhere}
+.feed .ft.in{animation:feedin .45s ease both}
+@keyframes feedin{from{opacity:0;transform:translateY(5px)}}
+.hero .big small{font-size:.38em;letter-spacing:-.02em;color:var(--ink-2);font-weight:600;margin-left:6px}
+.hero .lede{font-size:16px;line-height:1.45;color:#D5EBE7;max-width:44ch;margin-top:12px;text-wrap:pretty}
+.hero .lede b{color:#fff}
+.hero .legend{margin-top:16px}
+.chip{display:inline-flex;align-items:center;gap:5px;padding:2px 9px;border-radius:99px;font:500 12px var(--mono)}
+.chip.good{background:color-mix(in srgb,var(--good) 18%,transparent);color:var(--good)}
+.chip.bad{background:color-mix(in srgb,var(--bad) 16%,transparent);color:var(--bad)}
+.hero .chip.good{background:rgba(76,201,131,.18);color:#6EE0A2}
+
+.kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(178px,1fr));gap:1px;background:var(--line);border:1px solid var(--line);border-radius:16px;overflow:hidden;margin-top:16px}
+.kpi{position:relative;display:flex;flex-direction:column;gap:2px;text-align:left;padding:16px 18px 14px;border:0;background:var(--surface);min-width:0}
+button.kpi:hover{background:var(--surface-2)}
+.kpi .l{font:500 11px var(--mono);letter-spacing:.06em;text-transform:uppercase;color:var(--ink-3)}
+.kpi .v{font:700 30px/1.1 var(--display);letter-spacing:-.03em;margin-top:6px}
+.kpi .v small{font-size:15px;color:var(--ink-2);font-weight:600;margin-left:2px}
+.kpi .r{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-top:6px}
+.kpi svg.sp{display:block}
+.legend{display:flex;flex-wrap:wrap;gap:6px 16px;font-size:12px;color:var(--ink-2)}
+.legend i{display:inline-block;width:9px;height:9px;border-radius:3px;margin-right:6px;vertical-align:-1px}
+
+.chartbox{width:100%;position:relative}
+.chartbox svg{display:block;overflow:visible}
+.ax{font:400 11px var(--mono);fill:var(--ink-3)}
+.hit .hv{opacity:0}.hit:hover .hv{opacity:1}
+.hit rect.hr{fill:transparent}
+.seg-c{transition:stroke-width .15s}.seg-c:hover{stroke-width:21}
+
+.bars{display:flex;flex-direction:column;gap:11px}
+.brow{display:grid;grid-template-columns:minmax(92px,1.1fr) 3fr minmax(58px,auto);gap:12px;align-items:center;font-size:13px;border-radius:8px}
+.brow.click{cursor:pointer}.brow.click:hover .bl{color:var(--brand-ink)}
+.bl{display:flex;align-items:center;gap:8px;min-width:0}
+.bl small{display:block;color:var(--ink-3);font-size:11px}
+.bl .dot{flex:none;width:8px;height:8px;border-radius:3px}
+.bt{height:10px;border-radius:6px;background:var(--surface-2);overflow:hidden}
+.bt i{display:block;height:100%;border-radius:6px;transform-origin:left;animation:grow .7s cubic-bezier(.2,.7,.2,1) both}
+@keyframes grow{from{transform:scaleX(0)}}
+.bv{font:500 12.5px var(--mono);text-align:right;white-space:nowrap}
+
+.donut{position:relative;flex:none}
+.donut .dc{position:absolute;inset:0;display:grid;place-content:center;text-align:center}
+.donut .dc b{font:700 26px/1 var(--display);letter-spacing:-.03em}
+.donut .dc span{font:500 10px var(--mono);letter-spacing:.08em;text-transform:uppercase;color:var(--ink-3);margin-top:4px}
+.row{display:flex;flex-wrap:wrap;gap:18px;align-items:center}
+.split{display:grid;grid-template-columns:auto minmax(0,1fr);gap:22px;align-items:center}
+.tiny{font-size:12px;color:var(--ink-3)}
+.pill{display:inline-block;padding:2px 10px;border-radius:99px;font:600 11.5px var(--body)}
+.pill.good{background:color-mix(in srgb,var(--good) 15%,transparent);color:var(--good)}
+.pill.warn{background:color-mix(in srgb,var(--warn) 17%,transparent);color:var(--warn)}
+.pill.info{background:var(--brand-soft);color:var(--brand-ink)}
+.van{display:inline-block;font:500 12px var(--mono);padding:2px 8px;border-radius:6px;background:var(--surface-2);border:1px solid var(--line)}
+.van.new{background:var(--brand-soft);color:var(--brand-ink);border-color:transparent}
+.arr{color:var(--ink-3);margin:0 6px}
+.pill.bad{background:color-mix(in srgb,var(--bad) 15%,transparent);color:var(--bad)}
+
+.goals{display:flex;flex-direction:column;gap:6px}
+.goal{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:4px 14px;padding:10px 12px;margin:0 -12px;border:0;border-radius:12px;background:none;text-align:left;width:calc(100% + 24px)}
+.goal:hover{background:var(--surface-2)}
+.goal b{font-weight:600}.goal .m{font:500 12px var(--mono);color:var(--ink-3)}
+.goal .gv{font:700 18px var(--display);text-align:right;color:var(--brand-ink)}
+.gt{grid-column:1/-1;position:relative;height:8px;border-radius:5px;background:var(--surface-2);margin-top:4px}
+.gt i{position:absolute;inset:0 auto 0 0;border-radius:5px;background:var(--brand);animation:grow .8s cubic-bezier(.2,.7,.2,1) both;transform-origin:left}
+.gt u{position:absolute;top:-4px;bottom:-4px;width:2px;background:var(--ink);border-radius:2px}
+.ins{display:flex;flex-direction:column}
+.in{display:grid;grid-template-columns:auto minmax(0,1fr) auto;gap:12px;align-items:start;text-align:left;width:100%;border:0;background:none;padding:11px 0;border-top:1px solid var(--line)}
+.in:first-child{border-top:0;padding-top:0}
+.in:hover b{color:var(--brand-ink)}
+.in .ic{width:28px;height:28px;border-radius:9px;display:grid;place-items:center;font:700 13px var(--display);color:#fff}
+.in b{display:block;font-weight:600;font-size:13.5px}
+.in span.t{display:block;color:var(--ink-2);font-size:12.5px;margin-top:1px}
+.in em{font:500 12px var(--mono);font-style:normal;color:var(--ink-3);margin-top:3px}
+
+.tw{overflow-x:auto;margin:0 -20px;padding:0 20px}
+table{width:100%;border-collapse:collapse;min-width:640px}
+th{font:500 11px var(--mono);letter-spacing:.06em;text-transform:uppercase;color:var(--ink-3);text-align:left;padding:0 10px 10px 0;white-space:nowrap}
+th button{border:0;background:none;padding:0;font:inherit;letter-spacing:inherit;text-transform:inherit;color:inherit}
+th button:hover,th button.on{color:var(--brand-ink)}
+td{padding:11px 10px 11px 0;border-top:1px solid var(--line);white-space:nowrap}
+tr.zr{cursor:pointer}tr.zr:hover td{background:var(--surface-2)}
+td .mb{display:inline-flex;align-items:center;gap:8px;min-width:120px}
+td .mb i{display:block;width:64px;height:6px;border-radius:4px;background:var(--surface-2);overflow:hidden}
+td .mb i s{display:block;height:100%;background:var(--c1);border-radius:4px}
+
+.heat{display:grid;grid-template-columns:max-content repeat(7,minmax(0,1fr));gap:4px;font-size:11.5px}
+.heat .hh{font:500 10.5px var(--mono);color:var(--ink-3);text-align:center;padding-bottom:2px}
+.heat .rl{display:flex;align-items:center;padding-right:6px;color:var(--ink-2);font-weight:500}
+.heat .c{display:grid;place-items:center;height:34px;border-radius:7px;font:500 11.5px var(--mono);color:var(--ink)}
+
+.sim{display:flex;flex-direction:column;gap:20px}
+.sl label{display:flex;justify-content:space-between;align-items:baseline;gap:10px;font-weight:600;margin-bottom:6px}
+.sl label output{font:600 13px var(--mono);color:var(--brand-ink)}
+.sl small{display:block;color:var(--ink-3);font-size:12px;margin-top:4px}
+input[type=range]{width:100%;height:24px;appearance:none;background:none;--p:50%}
+input[type=range]::-webkit-slider-runnable-track{height:8px;border-radius:5px;background:linear-gradient(90deg,var(--brand) var(--p),var(--surface-2) var(--p));border:1px solid var(--line)}
+input[type=range]::-moz-range-track{height:8px;border-radius:5px;background:var(--surface-2);border:1px solid var(--line)}
+input[type=range]::-moz-range-progress{height:8px;border-radius:5px;background:var(--brand)}
+input[type=range]::-webkit-slider-thumb{appearance:none;width:22px;height:22px;margin-top:-8px;border-radius:50%;background:var(--surface);border:3px solid var(--brand);box-shadow:0 2px 6px rgba(0,0,0,.2)}
+input[type=range]::-moz-range-thumb{width:16px;height:16px;border-radius:50%;background:var(--surface);border:3px solid var(--brand)}
+.tot{padding:22px 24px;border-radius:16px;color:#EAF7F4;background:radial-gradient(120% 140% at 100% 0%,var(--hero-b),var(--hero-a));margin-bottom:18px}
+.tot .eyebrow{font:500 11px var(--mono);letter-spacing:.1em;text-transform:uppercase;color:#84A9A5}
+.tot .n{font:700 clamp(44px,6vw,68px)/1 var(--display);letter-spacing:-.05em;margin:8px 0 4px}
+.tot p{color:#B4D0CC;font-size:13px}
+.note{font-size:12px;color:var(--ink-3);margin-top:14px;padding-bottom:16px}
+
+.tip{position:fixed;z-index:60;pointer-events:none;background:var(--ink);color:var(--bg);padding:8px 11px;border-radius:9px;font-size:12px;line-height:1.5;max-width:260px;opacity:0;transition:opacity .1s;box-shadow:0 8px 24px rgba(0,0,0,.25)}
+.tip i{display:inline-block;width:8px;height:8px;border-radius:2px;margin-right:6px}
+.tip .tv{float:right;margin-left:14px;font-family:var(--mono)}
+.foot{margin-top:28px;color:var(--ink-3);font-size:12px;display:flex;flex-wrap:wrap;justify-content:space-between;gap:8px}
+
+[hidden]{display:none!important}
+.mapwrap{display:grid;grid-template-columns:minmax(0,1fr);gap:16px}
+.mapbox{position:relative;isolation:isolate;min-width:0;border:1px solid var(--line);border-radius:14px;overflow:hidden;background:var(--surface-2)}
+#zmap{width:100%;height:500px}
+.leaflet-container{background:var(--surface-2);font:12px/1.4 var(--body)}
+.leaflet-control-attribution{font-size:10px}
+.zmk{background:none;border:0}
+.zpin{position:relative;width:100%;height:100%;cursor:pointer}
+.zpin .zdot{position:absolute;inset:0;border-radius:50%;border:2.5px solid var(--surface);box-shadow:0 2px 8px rgba(0,0,0,.35)}
+.zpin.s-good .zdot{background:var(--c1)}.zpin.s-warn .zdot{background:var(--warn)}.zpin.s-bad .zdot{background:var(--bad)}
+.zpin.on .zdot{box-shadow:0 0 0 3px var(--surface),0 0 0 6px var(--brand)}
+.zpin .zlbl{position:absolute;white-space:nowrap;padding:3px 8px;border-radius:7px;background:var(--surface);color:var(--ink);font:600 12px var(--body);border:1px solid var(--line);box-shadow:0 2px 8px rgba(0,0,0,.16)}
+.zpin .zlbl small{font:500 10.5px var(--mono);color:var(--ink-3);margin-left:5px}
+.zpin.p-right .zlbl{left:calc(100% + 6px);top:50%;transform:translateY(-50%)}
+.zpin.p-left .zlbl{right:calc(100% + 6px);top:50%;transform:translateY(-50%)}
+.zpin.p-top .zlbl{bottom:calc(100% + 6px);left:50%;transform:translateX(-50%)}
+.zpin.on .zlbl{border-color:var(--brand);color:var(--brand-ink)}
+.zpin.dim{opacity:.55}
+.zcirc{stroke-width:1.5;fill-opacity:.16;transition:fill-opacity .15s}
+.zcirc.s-good{stroke:var(--c1);fill:var(--c1)}.zcirc.s-warn{stroke:var(--warn);fill:var(--warn)}.zcirc.s-bad{stroke:var(--bad);fill:var(--bad)}
+.zcirc:hover{fill-opacity:.3}
+.zcirc.on{stroke:var(--brand);stroke-width:3;fill-opacity:.3}
+.zcirc.dim{opacity:.4}
+.zroad{stroke:var(--ink-3);stroke-opacity:.45;fill:none}
+.mapnote{position:absolute;left:10px;bottom:10px;z-index:800;max-width:calc(100% - 20px);padding:5px 9px;border-radius:8px;background:var(--surface);border:1px solid var(--line);font-size:11.5px;color:var(--ink-2)}
+.zlist{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px}
+@media (max-width:980px){.zlist{grid-template-columns:repeat(2,minmax(0,1fr))}}
+.zn{display:flex;flex-direction:column;align-items:flex-start;gap:6px;padding:13px 14px;border:1px solid var(--line);border-radius:14px;background:var(--surface-2);text-align:left;min-width:0;transition:transform .15s,border-color .15s}
+.zn:hover{transform:translateY(-2px);border-color:var(--brand)}
+.zn[aria-pressed=true]{background:var(--brand-soft);border-color:var(--brand);box-shadow:inset 0 0 0 1px var(--brand)}
+.zn b{font:600 14px var(--body)}
+.zn .zs{font:500 11px var(--mono);color:var(--ink-3)}
+.zn .zb{width:100%;height:6px;border-radius:4px;background:var(--surface);border:1px solid var(--line);overflow:hidden}
+.zn .zb i{display:block;height:100%;border-radius:4px;animation:grow .7s cubic-bezier(.2,.7,.2,1) both;transform-origin:left}
+.fab{position:fixed;right:20px;bottom:calc(20px + env(safe-area-inset-bottom,0px));z-index:40;display:flex;align-items:center;gap:10px;padding:9px 20px 9px 9px;border:0;border-radius:99px;background:var(--brand);color:var(--on-brand);font-weight:600;box-shadow:0 12px 30px -10px rgba(0,0,0,.45)}
+.fab svg{flex:none;display:block;filter:drop-shadow(0 2px 3px rgba(0,0,0,.22))}
+.fab:hover{filter:brightness(1.06)}
+.chat{position:fixed;right:20px;bottom:calc(20px + env(safe-area-inset-bottom,0px));z-index:41;width:min(372px,calc(100vw - 32px));max-height:min(560px,calc(100vh - 48px));display:flex;flex-direction:column;background:var(--surface);border:1px solid var(--line);border-radius:18px;overflow:hidden;box-shadow:0 26px 64px -20px rgba(0,0,0,.5);animation:pop .22s ease both}
+@keyframes pop{from{opacity:0;transform:translateY(12px) scale(.98)}}
+.chat>header{display:flex;align-items:center;gap:10px;padding:12px 14px;border-bottom:1px solid var(--line);background:var(--surface-2)}
+.chat .av{width:36px;height:36px;flex:none}
+.chat .av svg{display:block;width:100%;height:100%;border-radius:10px;filter:drop-shadow(0 1px 2px rgba(0,0,0,.14))}
+.kn{font-family:'Noto Sans Kannada',var(--body);font-weight:500;font-size:12px;color:var(--ink-3);margin-left:5px}
+.chat header b{font:600 14px var(--body)}
+.chat header small{display:block;font:500 10px var(--mono);color:var(--ink-3);text-transform:uppercase;letter-spacing:.07em}
+.chat .x{margin-left:auto;border:0;background:none;color:var(--ink-3);font-size:17px;line-height:1;padding:5px 7px;border-radius:8px}
+.chat .x:hover{background:var(--surface);color:var(--ink)}
+.msgs{flex:1;overflow-y:auto;padding:14px;display:flex;flex-direction:column;gap:10px;min-height:160px}
+.msg{max-width:88%;padding:9px 12px;border-radius:14px;font-size:13px;line-height:1.5;animation:feedin .3s ease both}
+.msg.bot{background:var(--surface-2);border:1px solid var(--line);border-bottom-left-radius:5px;align-self:flex-start}
+.msg.me{background:var(--brand);color:var(--on-brand);border-bottom-right-radius:5px;align-self:flex-end}
+.msg b{font-weight:600}
+.sugg{display:flex;flex-wrap:wrap;gap:6px;padding:0 14px 12px}
+.sugg button{border:1px solid var(--line);background:var(--surface-2);color:var(--ink-2);border-radius:99px;padding:6px 11px;font-size:12px}
+.sugg button:hover{border-color:var(--brand);color:var(--brand-ink)}
+.cin{display:flex;gap:8px;padding:12px 14px;border-top:1px solid var(--line);background:var(--surface-2)}
+.cin input{flex:1;min-width:0;padding:9px 12px;border-radius:10px;border:1px solid var(--line);background:var(--surface)}
+.cin button{border:0;border-radius:10px;padding:0 15px;background:var(--brand);color:var(--on-brand);font-weight:600}
+@media (max-width:860px){.mapwrap{grid-template-columns:minmax(0,1fr)}}
+@media (max-width:640px){#zmap{height:380px}.zpin .zlbl{display:none}.zpin.on .zlbl{display:block;left:50%;right:auto;top:auto;bottom:calc(100% + 6px);transform:translateX(-50%)}}
+@media (max-width:440px){.zlist{grid-template-columns:minmax(0,1fr)}}
+@media (max-width:1100px){.s4,.s5,.s6,.s7,.s8{grid-column:span 12}.hero{grid-template-columns:minmax(0,1fr)}}
+@media (max-width:760px){.split{grid-template-columns:minmax(0,1fr)}}
+@media (max-width:860px){
+  .app{grid-template-columns:minmax(0,1fr)}
+  .rail{position:sticky;height:auto;flex-direction:row;align-items:center;gap:8px;padding:10px 16px;overflow-x:auto;border-right:0;border-bottom:1px solid var(--line);z-index:7}
+  .logo{padding:0 8px 0 0}.logo small,.nav-l,.rail-foot,.brand,.nb kbd{display:none}
+  .nav{flex-direction:row}.nb{white-space:nowrap;padding:8px 12px}
+  main{padding:0 16px 40px}
+  .top{position:static;padding-top:18px;backdrop-filter:none}
+}
+@media (max-width:520px){.hero{padding:20px 18px 14px}.top h1{font-size:25px}.panel{padding:16px 16px 0}.pv{margin:14px -16px 0;padding:11px 16px}.tw{margin:0 -16px;padding:0 16px}.brow{grid-template-columns:minmax(84px,1fr) 1.6fr auto;gap:8px}}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+</style>
+</head>
+<body>
+<div class="app">
+  <aside class="rail">
+    <div class="logo">
+      <div class="mk"><img src="data:image/png;base64,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" alt="" width="128" height="106"></div>
+      <div><b>Unwaste</b><small>Insights</small></div>
+    </div>
+    <div class="nav-l">Dashboards</div>
+    <nav class="nav" id="nav" aria-label="Dashboards">
+      <button class="nb" data-act="nav:overview"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="7" height="9" rx="2"/><rect x="14" y="3" width="7" height="5" rx="2"/><rect x="14" y="12" width="7" height="9" rx="2"/><rect x="3" y="16" width="7" height="5" rx="2"/></svg>Overview<kbd>1</kbd></button>
+      <button class="nb" data-act="nav:driver"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M1 6h13v10H1zM14 9h4l4 4v3h-8"/><circle cx="6" cy="18" r="2"/><circle cx="17" cy="18" r="2"/></svg>Driver<kbd>2</kbd></button>
+      <button class="nb" data-act="nav:supervisor"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="5" y="3" width="14" height="18" rx="2"/><path d="m9 12 2 2 4-4M9 7h6"/></svg>Supervisor<kbd>3</kbd></button>
+      <button class="nb" data-act="nav:manager"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="6" cy="19" r="2"/><circle cx="18" cy="5" r="2"/><path d="M8 19h8a3 3 0 0 0 0-6H8a3 3 0 0 1 0-6h8"/></svg>Manager<kbd>4</kbd></button>
+      <button class="nb" data-act="nav:growth"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m3 17 6-6 4 4 8-8"/><path d="M15 7h6v6"/></svg>Growth Opportunities<kbd>5</kbd></button>
+    </nav>
+    <div class="rail-foot"><b><span class="live"></span>Concept preview</b>Illustrative sample data. Connects to live app events in production.</div>
+    <div class="brand"><span class="bl">Prepared for</span><span class="bp"><img src="data:image/png;base64,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" alt="Hasiru Dala Innovations" width="320" height="252"></span></div>
+  </aside>
+
+  <main>
+    <header class="top">
+      <div>
+        <h1 id="ttl">Overview</h1>
+        <p id="sub"></p>
+      </div>
+      <div class="ctl">
+        <div class="seg" role="group" aria-label="Date range" id="rng">
+          <button data-act="range:7D" aria-pressed="false">7D</button>
+          <button data-act="range:30D" aria-pressed="true">30D</button>
+          <button data-act="range:90D" aria-pressed="false">90D</button>
+        </div>
+        <select class="sel" id="zoneSel" aria-label="Zone">
+          <option value="all">All zones</option><option value="bommanahalli">Bommanahalli</option><option value="anekal">Anekal</option><option value="padmanabhanagar">Padmanabhanagar</option><option value="mahadevapura">Mahadevapura</option><option value="jayanagar">Jayanagar</option><option value="bsouth">Bengaluru South</option><option value="council">Municipal council</option><option value="btm">BTM Layout</option>
+        </select>
+        <button class="ib" id="themeBtn" data-act="theme" aria-label="Toggle light or dark theme" title="Toggle theme"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg></button>
+      </div>
+    </header>
+    <div id="view"></div>
+    <div class="foot"><span>Sample data for concept demonstration. Figures are illustrative, not client records.</span><span>Prepared by Spritle for Hasiru Dala Innovations</span></div>
+  </main>
+</div>
+<div class="tip" id="tip" role="tooltip"></div>
+<button class="fab" id="fab" data-act="chat" aria-expanded="false"><svg viewBox="0 0 64 64" width="26" height="26" aria-hidden="true"><defs><linearGradient id="gVaniFab" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#0B4F2B"/><stop offset="1" stop-color="#12925A"/></linearGradient></defs><rect width="64" height="64" rx="16" fill="url(#gVaniFab)"/><rect x="6.8" y="23.0" width="6.4" height="18" rx="3.2" fill="#FFFFFF"/><rect x="17.8" y="18.0" width="6.4" height="28" rx="3.2" fill="#FFFFFF"/><rect x="28.8" y="12.0" width="6.4" height="40" rx="3.2" fill="#F2B84B"/><rect x="39.8" y="18.0" width="6.4" height="28" rx="3.2" fill="#FFFFFF"/><rect x="50.8" y="23.0" width="6.4" height="18" rx="3.2" fill="#FFFFFF"/></svg> Ask Hasiru Vani</button>
+<section class="chat" id="chat" role="dialog" aria-label="Hasiru Vani assistant" hidden>
+  <header><span class="av"><svg viewBox="0 0 64 64" aria-hidden="true"><defs><linearGradient id="gVaniAvatar" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#0B4F2B"/><stop offset="1" stop-color="#12925A"/></linearGradient></defs><rect width="64" height="64" rx="16" fill="url(#gVaniAvatar)"/><rect x="6.8" y="23.0" width="6.4" height="18" rx="3.2" fill="#FFFFFF"/><rect x="17.8" y="18.0" width="6.4" height="28" rx="3.2" fill="#FFFFFF"/><rect x="28.8" y="12.0" width="6.4" height="40" rx="3.2" fill="#F2B84B"/><rect x="39.8" y="18.0" width="6.4" height="28" rx="3.2" fill="#FFFFFF"/><rect x="50.8" y="23.0" width="6.4" height="18" rx="3.2" fill="#FFFFFF"/></svg></span><div><b>Hasiru Vani<span class="kn">ಹಸಿರು ವಾಣಿ</span></b><small>Your Unwaste assistant · concept</small></div><button class="x" data-act="chat" aria-label="Close assistant">&#10005;</button></header>
+  <div class="msgs" id="msgs"></div>
+  <div class="sugg" id="sugg"></div>
+  <form class="cin" id="cform"><input id="cinp" autocomplete="off" placeholder="Ask about collections, zones, vans&#8230;" aria-label="Ask the assistant"><button type="submit">Send</button></form>
+</section>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script>
+<script>
+(function(){'use strict';
+const $=(s,r=document)=>r.querySelector(s);
+const sum=a=>a.reduce((x,y)=>x+y,0), avg=a=>sum(a)/a.length;
+const fmt=n=>Math.round(n).toLocaleString('en-IN');
+const esc=s=>String(s).replace(/&/g,'&amp;').replace(/"/g,'&quot;').replace(/</g,'&lt;');
+const tip=h=>h?` data-tip="${esc(h)}"`:'';
+const hash=s=>[...s].reduce((a,c)=>(a*31+c.charCodeAt(0))|0,7);
+function rng(a){return function(){a|=0;a=a+0x6D2B79F5|0;let t=Math.imul(a^a>>>15,1|a);t=t+Math.imul(t^t>>>7,61|t)^t;return((t^t>>>14)>>>0)/4294967296}}
+const MON=['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'],DOW=['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
+const RANGES={'7D':{n:7,days:7,txt:'Last 7 days'},'30D':{n:30,days:30,txt:'Last 30 days'},'90D':{n:13,days:91,txt:'Last 13 weeks'}};
+const ZONES={all:{name:'All zones',w:1,bt:0,sg:0,ed:0,cs:0},
+  bommanahalli:{name:'Bommanahalli',w:.16,bt:1,sg:0,ed:0,cs:.02},
+  anekal:{name:'Anekal',w:.09,bt:-10,sg:-9,ed:2.2,cs:-.22},
+  padmanabhanagar:{name:'Padmanabhanagar',w:.10,bt:2,sg:3,ed:-.3,cs:.05},
+  mahadevapura:{name:'Mahadevapura',w:.19,bt:4,sg:3,ed:-.5,cs:.06},
+  jayanagar:{name:'Jayanagar',w:.11,bt:6,sg:7,ed:-1,cs:.12},
+  bsouth:{name:'Bengaluru South',w:.12,bt:-4,sg:-5,ed:1,cs:-.06},
+  council:{name:'Municipal council',w:.11,bt:-7,sg:-6,ed:1.5,cs:-.12},
+  btm:{name:'BTM Layout',w:.12,bt:5,sg:6,ed:-1,cs:.1}};
+const state={view:'overview',range:'30D',zone:'all',ui:{dry:'vol',ew:'vol',fb:'time'},sort:{k:'t',d:-1},sim:{bt:92,sg:85,pay:70,gw:78,cv:14}};
+const charts=[];
+const clamp=(v,a,b)=>Math.min(b,Math.max(a,v));
+
+/* ---------- data model ---------- */
+function build(zk=state.zone){
+  const R=RANGES[state.range],Z=ZONES[zk],n=R.n,step=R.days/n,r=rng(hash(state.range+zk));
+  const D={R,Z,n,step,labels:[],dates:[]},TODAY=new Date();
+  for(let i=0;i<n;i++){const d=new Date(TODAY);d.setDate(d.getDate()-Math.round((n-1-i)*step));D.dates.push(d);D.labels.push(state.range==='7D'?DOW[d.getDay()]:d.getDate()+' '+MON[d.getMonth()]);}
+  const t=i=>n>1?i/(n-1):1,nz=(a=.06)=>1+(r()-.5)*2*a;
+  const trend=(a,b,ns,dec=1,lo=0,hi=1e9)=>Array.from({length:n},(_,i)=>+clamp(a+(b-a)*t(i)+(r()-.5)*2*ns,lo,hi).toFixed(dec));
+  const cnt=(perDay,g=.2)=>Array.from({length:n},(_,i)=>Math.max(0,Math.round(perDay*Z.w*step*(1+g*t(i))*nz(.18))));
+  const dayF=d=>[.55,1.04,1.06,1.03,1.05,1.07,.98][d.getDay()];
+  D.wet=[];D.dry=[];D.garden=[];D.ew=[];D.total=[];
+  for(let i=0;i<n;i++){const b=38*Z.w*step*(.92+.16*t(i))*(step===1?dayF(D.dates[i]):1);
+    const w=b*.58*nz(.05),d=b*.28*nz(.06),g=b*.128*nz(.12),e=b*.012*nz(.1);D.wet.push(w);D.dry.push(d);D.garden.push(g);D.ew.push(e);D.total.push(w+d+g+e);}
+  D.totalT=sum(D.total);
+  D.bt=trend(56+Z.bt,80+Z.bt*.6,1.2,1,0,99);D.seg=trend(62+Z.sg,73+Z.sg*.7,1.5,1,0,99);D.edit=trend(9.2+Z.ed,5.6+Z.ed*.6,.5,1,0.5,30);
+  D.cash=trend(46,31,1.5);D.chq=trend(20,15,1);D.neft=D.cash.map((c,i)=>+(100-c-D.chq[i]).toFixed(1));
+  D.adhoc=cnt(11,.25);D.resp=trend(5.8,3.9,.3);D.flags=cnt(14,-.15);D.resolve=trend(11.2,7.4,.5);D.csat=trend(4.05+Z.cs,4.42+Z.cs,.04,2,1,5);
+  D.route=cnt(3.1,.1);D.tps=trend(7.9,6.4,.15,2);D.fuel=D.route.map(v=>Math.round(v*(13+r()*4)));
+  D.pReq=cnt(9,.1);D.pApp=D.pReq.map((v,i)=>Math.round(v*(.78+.08*t(i))));D.pRev=D.pApp.map(v=>v*450);
+  D.pcol=D.pApp.map(v=>Math.round(v*.9)*450);
+  return D;
+}
+const cur=a=>avg(a.slice(-Math.max(2,Math.ceil(a.length/4)))),first=a=>avg(a.slice(0,Math.max(2,Math.ceil(a.length/4))));
+const dPts=(a,up=true,u=' pts')=>{const d=cur(a)-first(a);return{txt:(d>=0?'+':'−')+Math.abs(d).toFixed(u===' pts'?1:2)+u,up:d>=0,good:(d>=0)===up}};
+const dPct=(a,up=true)=>{const d=(cur(a)/first(a)-1)*100;return{txt:(d>=0?'+':'−')+Math.abs(d).toFixed(1)+'%',up:d>=0,good:(d>=0)===up}};
+function shares(base,r){const v=base.map(b=>b*(1+(r()-.5)*.16));const s=sum(v);return v.map(x=>x/s)}
+
+/* ---------- chart helpers ---------- */
+function niceStep(x){const p=Math.pow(10,Math.floor(Math.log10(x))),m=x/p;return(m<=1?1:m<=2?2:m<=2.5?2.5:m<=5?5:10)*p}
+function smooth(p){if(p.length<3)return'M'+p.map(q=>q.join(',')).join('L');let d='M'+p[0].join(',');
+  for(let i=0;i<p.length-1;i++){const a=p[i-1]||p[i],b=p[i],c=p[i+1],e=p[i+2]||c,k=.18;
+    d+=`C${(b[0]+(c[0]-a[0])*k).toFixed(1)},${(b[1]+(c[1]-a[1])*k).toFixed(1)} ${(c[0]-(e[0]-b[0])*k).toFixed(1)},${(c[1]-(e[1]-b[1])*k).toFixed(1)} ${c[0].toFixed(1)},${c[1].toFixed(1)}`;}return d}
+let uid=0;
+function areaChart(w,h,o){
+  const P={l:o.pl||40,r:16,t:12,b:26},iw=w-P.l-P.r,ih=h-P.t-P.b,n=o.labels.length,fm=o.fmt||fmt,id='g'+(++uid);
+  let tops=o.series.map(s=>s.vals.slice()),bases=o.series.map(s=>s.vals.map(()=>0));
+  if(o.stacked){const acc=Array(n).fill(0);tops=[];bases=[];o.series.forEach(s=>{bases.push(acc.slice());s.vals.forEach((v,i)=>acc[i]+=v);tops.push(acc.slice())})}
+  const mxData=Math.max(...tops.flat(),o.target?o.target.v:0);
+  let mn=o.min??0,mx=o.max;if(mx==null){const st=niceStep((mxData-mn)/4);mx=mn+st*4;}
+  const x=i=>P.l+(n>1?i*iw/(n-1):iw/2),y=v=>P.t+ih-(v-mn)/(mx-mn)*ih;
+  let s=`<svg width="${w}" height="${h}" viewBox="0 0 ${w} ${h}" role="img"><defs>`;
+  if(!o.stacked)o.series.forEach((se,k)=>s+=`<linearGradient id="${id}${k}" x1="0" y1="0" x2="0" y2="1"><stop offset="0" style="stop-color:${se.color};stop-opacity:.3"/><stop offset="1" style="stop-color:${se.color};stop-opacity:0"/></linearGradient>`);
+  s+='</defs>';
+  for(let i=0;i<=4;i++){const v=mn+(mx-mn)*i/4,yy=y(v);s+=`<line x1="${P.l}" x2="${w-P.r}" y1="${yy}" y2="${yy}" style="stroke:var(--line)" stroke-dasharray="${i?'3 4':'0'}"/><text class="ax" x="${P.l-8}" y="${yy+4}" text-anchor="end">${fm(v)}</text>`}
+  const k=Math.max(1,Math.ceil(n/Math.max(2,Math.floor(iw/62))));
+  for(let i=0;i<n;i+=k)s+=`<text class="ax" x="${x(i)}" y="${h-6}" text-anchor="middle">${o.labels[i]}</text>`;
+  if(o.target){const ty=y(o.target.v);s+=`<line x1="${P.l}" x2="${w-P.r}" y1="${ty}" y2="${ty}" style="stroke:var(--ink-2)" stroke-dasharray="6 5" stroke-width="1.2"/><text class="ax" x="${w-P.r}" y="${ty-6}" text-anchor="end" style="fill:var(--ink-2)">${o.target.label}</text>`}
+  for(let j=o.series.length-1;j>=0;j--){const se=o.series[j],top=tops[j].map((v,i)=>[x(i),y(v)]),bot=bases[j].map((v,i)=>[x(i),y(v)]).reverse();
+    const line=smooth(top);
+    if(o.stacked)s+=`<path d="${line}L${smooth(bot).slice(1)}Z" style="fill:${se.color}" fill-opacity=".88"/><path d="${line}" fill="none" style="stroke:var(--surface-2)" stroke-opacity=".0"/>`;
+    else s+=`<path d="${line}L${x(n-1)},${y(mn)}L${x(0)},${y(mn)}Z" fill="url(#${id}${j})"/><path d="${line}" fill="none" style="stroke:${se.color}" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"${se.dash?' stroke-dasharray="5 5"':''}/>`}
+  if(!o.stacked)o.series.forEach((se,j)=>{const lx=x(n-1),ly=y(tops[j][n-1]);s+=`<circle cx="${lx}" cy="${ly}" r="4.5" style="fill:${se.color};stroke:var(--surface)" stroke-width="2"/>`});
+  const hw=n>1?iw/(n-1)/2:iw/2;
+  for(let i=0;i<n;i++){let th=`<b>${o.labels[i]}</b>`;o.series.forEach(se=>th+=`<br><i style="background:${se.color}"></i>${se.name}<span class="tv">${fm(se.vals[i])}${o.unit||''}</span>`);
+    if(o.stacked&&o.totalTip)th+=`<br><b>Total</b><span class="tv">${fm(tops[tops.length-1][i])}${o.unit||''}</span>`;
+    s+=`<g class="hit"${tip(th)}><rect class="hr" x="${x(i)-hw}" y="${P.t}" width="${hw*2}" height="${ih}"/><g class="hv"><line x1="${x(i)}" x2="${x(i)}" y1="${P.t}" y2="${P.t+ih}" style="stroke:var(--ink-3)" stroke-dasharray="3 3"/>${o.series.map((se,j)=>`<circle cx="${x(i)}" cy="${y(tops[j][i])}" r="4.5" style="fill:var(--surface);stroke:${se.color}" stroke-width="2.4"/>`).join('')}</g></g>`}
+  return s+'</svg>'}
+function stackCols(w,h,o){
+  const P={l:40,r:16,t:12,b:26},iw=w-P.l-P.r,ih=h-P.t-P.b,n=o.labels.length,cw=iw/n,bw=Math.max(3,cw*(n>15?.68:.55)),y=v=>P.t+ih-v/100*ih;
+  let s=`<svg width="${w}" height="${h}" viewBox="0 0 ${w} ${h}" role="img">`;
+  for(let i=0;i<=4;i++){const yy=y(i*25);s+=`<line x1="${P.l}" x2="${w-P.r}" y1="${yy}" y2="${yy}" style="stroke:var(--line)" stroke-dasharray="${i?'3 4':'0'}"/><text class="ax" x="${P.l-8}" y="${yy+4}" text-anchor="end">${i*25}%</text>`}
+  const k=Math.max(1,Math.ceil(n/Math.max(2,Math.floor(iw/62))));
+  for(let i=0;i<n;i++){const cx=P.l+cw*i+cw/2;let acc=0,th=`<b>${o.labels[i]}</b>`,g='';
+    o.series.forEach(se=>{const v=se.vals[i],y0=y(acc),y1=y(acc+v);g+=`<rect x="${cx-bw/2}" y="${y1}" width="${bw}" height="${Math.max(0,y0-y1-1)}" rx="2" style="fill:${se.color}"/>`;acc+=v;th+=`<br><i style="background:${se.color}"></i>${se.name}<span class="tv">${se.vals[i].toFixed(1)}%</span>`});
+    s+=`<g class="hit"${tip(th)}><rect class="hr" x="${cx-cw/2}" y="${P.t}" width="${cw}" height="${ih}"/>${g}</g>`;
+    if(i%k===0)s+=`<text class="ax" x="${cx}" y="${h-6}" text-anchor="middle">${o.labels[i]}</text>`}
+  return s+'</svg>'}
+function donut(sz,parts,c){
+  const r=sz/2-11,C=2*Math.PI*r,tot=sum(parts.map(p=>p.val)),gap=parts.length>1?3:0;let off=0;
+  const segs=parts.map(p=>{const len=p.val/tot*C,e=`<circle class="seg-c" cx="${sz/2}" cy="${sz/2}" r="${r}" fill="none" style="stroke:${p.color}" stroke-width="16" stroke-dasharray="${Math.max(len-gap,.5)} ${C}" stroke-dashoffset="${-off}"${tip(p.tip||`<i style="background:${p.color}"></i>${p.name}<span class="tv">${(p.val/tot*100).toFixed(1)}%</span>`)}/>`;off+=len;return e}).join('');
+  return `<div class="donut" style="width:${sz}px;height:${sz}px"><svg viewBox="0 0 ${sz} ${sz}" width="${sz}" height="${sz}" style="transform:rotate(-90deg);overflow:visible"><circle cx="${sz/2}" cy="${sz/2}" r="${r}" fill="none" style="stroke:var(--surface-2)" stroke-width="16"/>${segs}</svg><div class="dc"><b>${c.big}</b><span>${c.small}</span></div></div>`}
+function barsH(items,o={}){
+  const mx=o.max??Math.max(...items.map(i=>i.val),1);
+  return`<div class="bars">`+items.map(i=>`<div class="brow${i.on?' click':''}"${i.on?` data-act="${i.on}" role="button" tabindex="0"`:''}${tip(i.tip)}><div class="bl"><span class="dot" style="background:${i.color||'var(--c1)'}"></span><span>${i.label}${i.sub?`<small>${i.sub}</small>`:''}</span></div><div class="bt"><i style="width:${clamp(i.val/mx*100,1,100)}%;background:${i.color||'var(--c1)'}"></i></div><div class="bv">${i.text}</div></div>`).join('')+'</div>'}
+function spark(vals,color,w=84,h=28){
+  const mn=Math.min(...vals),mx=Math.max(...vals),n=vals.length,x=i=>2+i*(w-8)/(n-1),y=v=>h-3-(v-mn)/((mx-mn)||1)*(h-8),p=vals.map((v,i)=>[x(i),y(v)]),d=smooth(p),id='s'+(++uid);
+  return`<svg class="sp" width="${w}" height="${h}" viewBox="0 0 ${w} ${h}" aria-hidden="true"><defs><linearGradient id="${id}" x1="0" y1="0" x2="0" y2="1"><stop offset="0" style="stop-color:${color};stop-opacity:.28"/><stop offset="1" style="stop-color:${color};stop-opacity:0"/></linearGradient></defs><path d="${d}L${x(n-1)},${h}L${x(0)},${h}Z" fill="url(#${id})"/><path d="${d}" fill="none" style="stroke:${color}" stroke-width="2" stroke-linecap="round"/><circle cx="${p[n-1][0]}" cy="${p[n-1][1]}" r="3" style="fill:${color}"/></svg>`}
+function legend(items){return`<div class="legend">`+items.map(i=>`<span><i style="background:${i[1]}"></i>${i[0]}</span>`).join('')+'</div>'}
+function ch(h,fn){const id='ch'+charts.length;charts.push({id,h,fn});return`<div class="chartbox" id="${id}" style="height:${h}px"></div>`}
+function drawCharts(){charts.forEach(c=>{const el=document.getElementById(c.id);if(el&&el.clientWidth)el.innerHTML=c.fn(el.clientWidth,c.h)})}
+
+/* ---------- tooltip ---------- */
+const tipEl=$('#tip');
+document.addEventListener('mouseover',e=>{const t=e.target.closest&&e.target.closest('[data-tip]');if(!t){tipEl.style.opacity=0;return}tipEl.innerHTML=t.dataset.tip;tipEl.style.opacity=1});
+document.addEventListener('mousemove',e=>{if(tipEl.style.opacity!=='1')return;const w=tipEl.offsetWidth,h=tipEl.offsetHeight;let x=e.clientX+14,y=e.clientY+16;if(x+w>innerWidth-8)x=e.clientX-w-14;if(y+h>innerHeight-8)y=e.clientY-h-14;tipEl.style.left=Math.max(8,x)+'px';tipEl.style.top=Math.max(8,y)+'px'});
+document.addEventListener('scroll',()=>{tipEl.style.opacity=0},true);
+
+/* ---------- components ---------- */
+Object.assign(state.sim,{pay:85});
+const memo={};function B(zk){const k=state.range+zk;return memo[k]||(memo[k]=build(zk))}
+const LEAF='<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M11 20A7 7 0 0 1 4 13c0-6 7-9 16-9 0 9-3 16-9 16z"/><path d="M4 21c3-6 6-9 11-11"/></svg>';
+const panel=(span,title,sub,body,value,tools='')=>`<article class="panel ${span}"><div class="ph"><div><h3>${title}</h3><p>${sub}</p></div>${tools}</div><div class="pb">${body}</div>${value?`<div class="pv">${LEAF}<span><b>Growth value · </b>${value}</span></div>`:'<div style="height:18px"></div>'}</article>`;
+const toggle=(key,opts)=>`<div class="seg" role="group">`+opts.map(o=>`<button data-act="ui:${key}:${o[0]}" aria-pressed="${state.ui[key]===o[0]}">${o[1]}</button>`).join('')+'</div>';
+const chip=d=>`<span class="chip ${d.good?'good':'bad'}"${tip('Change from the start to the end of the selected period')}>${d.up?'▲':'▼'} ${d.txt}</span>`;
+const kpi=o=>{const T=o.go?'button':'div';return`<${T} class="kpi"${o.go?` data-act="go:${o.go}"`:''}><span class="l">${o.l}</span><span class="v">${o.v}${o.u?`<small>${o.u}</small>`:''}</span><span class="r">${chip(o.d)}${spark(o.sp,o.c||'var(--c1)')}</span></${T}>`};
+const p1=v=>v.toFixed(1),p0=v=>Math.round(v);
+
+/* ---------- shared derived data ---------- */
+function dryCats(D){const r=rng(hash('dry'+state.range+state.zone)),sh=shares([.38,.31,.19,.12],r),kg=sum(D.dry)*1000,pr=[11,17,3,34],nm=['Paper','Plastic','Glass','Metals'],co=['var(--c2)','var(--c3)','var(--c1)','var(--c6)'];
+  const rows=nm.map((n,i)=>({n,kg:kg*sh[i],pr:pr[i],val:kg*sh[i]*pr[i],c:co[i]})),tv=sum(rows.map(x=>x.val));rows.forEach(x=>{x.vs=x.val/tv;x.ks=x.kg/kg});return rows}
+function ewCats(D){const r=rng(hash('ew'+state.range+state.zone)),sh=shares([.34,.26,.22,.18],r),kg=sum(D.ew)*1000,pr=[46,12,9,58],nm=['Batteries','Tube lights','Bulbs','Cables & chargers'],co=['var(--c4)','var(--c3)','var(--c5)','var(--c2)'];
+  const rows=nm.map((n,i)=>({n,kg:kg*sh[i],pr:pr[i],val:kg*sh[i]*pr[i],c:co[i]})),tv=sum(rows.map(x=>x.val));rows.forEach(x=>{x.vs=x.val/tv;x.ks=x.kg/kg});return rows}
+function trucks(D){const r=rng(hash('trk'+state.range+state.zone));return Array.from({length:6},(_,i)=>({n:'T-0'+(i+1),w:clamp(54+(r()-.5)*14+(D.Z.sg*.2),38,72),v:clamp(96+(r()-.5)*7,86,100)}))}
+const zoneKeys=['bommanahalli','anekal','padmanabhanagar','mahadevapura','jayanagar','bsouth','council','btm'];
+/* lat, lng, service radius (m), label side, localities */
+const GEO={bommanahalli:[12.8930,77.6400,2400,'right','HSR Layout \u00b7 Begur \u00b7 Hongasandra'],
+  anekal:[12.7110,77.6950,3600,'right','Anekal town \u00b7 Sarjapura \u00b7 Dommasandra'],
+  padmanabhanagar:[12.9165,77.5585,1500,'left','Padmanabhanagar \u00b7 Banashankari \u00b7 Kumaraswamy Layout'],
+  mahadevapura:[12.9760,77.7100,3200,'right','Whitefield \u00b7 Marathahalli \u00b7 Bellandur'],
+  jayanagar:[12.9250,77.5838,1500,'top','Jayanagar \u00b7 JP Nagar \u00b7 Basavanagudi'],
+  bsouth:[12.8620,77.5750,2600,'left','Uttarahalli \u00b7 Konanakunte \u00b7 Anjanapura'],
+  council:[12.8120,77.6830,3000,'right','Hebbagodi \u00b7 Chandapura \u00b7 Jigani \u00b7 Attibele'],
+  btm:[12.9240,77.6140,1700,'right','BTM Layout \u00b7 Koramangala \u00b7 Madiwala']};
+function zoneRows(){return zoneKeys.map(k=>{const z=B(k);return{k,name:ZONES[k].name,t:z.totalT,bt:cur(z.bt),sg:cur(z.seg),cs:cur(z.csat)}})}
+const zStat=z=>z.bt<76?['bad','Needs action']:(z.bt>=80&&z.sg>=72)?['good','On track']:['warn','Watch'];
+const zCol=s=>s[0]==='bad'?'var(--bad)':s[0]==='warn'?'var(--warn)':'var(--c1)';
+const zTipHtml=(z,s)=>`<b>${z.name}</b> \u00b7 ${s[1]}<br><span style="opacity:.75">${GEO[z.k][4]}</span><br>Collected<span class="tv">${fmt(z.t)} t</span><br>Bluetooth<span class="tv">${p0(z.bt)}%</span><br>Segregation<span class="tv">${p0(z.sg)}%</span><br>CSAT<span class="tv">${z.cs.toFixed(2)} / 5</span>`;
+const zTip=(z,s)=>tip(zTipHtml(z,s));
+
+/* ---------- Overview ---------- */
+function vOverview(D){
+  const btNow=cur(D.bt),segNow=cur(D.seg),td={'7D':3.8,'30D':6.4,'90D':11.2}[state.range],
+    tk=trucks(D),gw=avg(tk.map(t=>t.w)),gv=avg(tk.map(t=>t.v)),btGain=dPts(D.bt),
+    ready=clamp(avg([btNow/state.sim.bt,segNow/state.sim.sg,gw/state.sim.gw])*100,0,100),
+    appRate=D.pApp.map((v,i)=>D.pReq[i]?v/D.pReq[i]*100:0);
+  const fmT=v=>v>=100?fmt(v):v.toFixed(1);
+  const hero=`<section class="hero"><div><div class="eyebrow"><span class="live"></span>Network collection \u00b7 ${D.R.txt} \u00b7 ${D.Z.name}</div>
+    <h2 class="hl">Full visibility. <span>Zero leakage.</span></h2>
+    <div class="big"><span id="heroNum" data-v="${Math.round(D.totalT)}">${fmt(D.totalT)}</span><small>tonnes tracked</small></div><span class="chip good">\u25b2 ${td}% vs previous period</span></div>
+    <div>${legend([['Wet & mixed','var(--c1)'],['Dry recyclables','var(--c2)'],['Garden','var(--c3)'],['E-waste','var(--c4)']])}
+    ${ch(250,(w,h)=>areaChart(w,h,{labels:D.labels,stacked:true,totalTip:true,unit:' t',fmt:fmT,series:[{name:'Wet & mixed',color:'var(--c1)',vals:D.wet},{name:'Dry recyclables',color:'var(--c2)',vals:D.dry},{name:'Garden',color:'var(--c3)',vals:D.garden},{name:'E-waste',color:'var(--c4)',vals:D.ew}]}))}</div>
+    <div class="proofs">
+      <div class="pf"><span class="l">Weighed by Bluetooth</span><span class="v">${p0(btNow)}%</span><span class="bar"><i style="width:${btNow}%"></i></span></div>
+      <div class="pf"><span class="l">Segregated at source</span><span class="v">${p0(segNow)}%</span><span class="bar"><i style="width:${segNow}%"></i></span></div>
+      <div class="pf"><span class="l">Leakage control gain</span><span class="v">${btGain.txt.replace(' pts','')}<small> pts</small></span><span class="sub">Bluetooth capture, this period</span></div>
+      <button class="pf hot" data-act="go:growth"><span class="l">Growth targets met</span><span class="v">${p0(ready)}%</span><span class="sub">See how we close the gap \u2192</span></button></div>
+    <div class="feed"><span class="live"></span><span class="fl">Live feed</span><span class="ft" id="feedTxt"></span></div></section>`;
+  const kp=`<div class="kpis">${[
+    {l:'Tonnes collected',v:fmt(D.totalT),u:' t',d:dPct(D.total),sp:D.total,go:'driver'},
+    {l:'Bluetooth weighing',v:p0(btNow),u:'%',d:dPts(D.bt),sp:D.bt,go:'driver',c:'var(--c2)'},
+    {l:'Segregation',v:p0(segNow),u:'%',d:dPts(D.seg),sp:D.seg,go:'driver',c:'var(--c3)'},
+    {l:'Collections corrected',v:p1(cur(D.edit)),u:'%',d:dPts(D.edit,false),sp:D.edit,go:'supervisor',c:'var(--c4)'},
+    {l:'Penalty approval',v:p0(avg(appRate)),u:'%',d:dPct(appRate),sp:appRate,go:'manager',c:'var(--c6)'},
+    {l:'Complaint resolution',v:p1(cur(D.resolve)),u:' h',d:dPct(D.resolve,false),sp:D.resolve,go:'manager',c:'var(--c5)'}].map(kpi).join('')}</div>`;
+  const goal=(name,metric,now,tgt,c)=>`<button class="goal" data-act="go:growth"><span><b>${name}</b><br><span class="m">${metric}</span></span><span class="gv">${p0(clamp(now/tgt*100,0,100))}%<span class="m" style="display:block;font-weight:500;text-align:right">of target</span></span><span class="gt"><i style="width:${now}%;background:${c}"></i><u style="left:${tgt}%"${tip('Target '+tgt+'%')}></u></span></button>`;
+  const goals=`<div class="goals">${goal('Revenue optimisation','Segregation compliance \u00b7 now '+p0(segNow)+'% \u2192 '+state.sim.sg+'%',segNow,state.sim.sg,'var(--c3)')}${goal('Operational efficiency','Garden truck weight fill \u00b7 now '+p0(gw)+'% \u2192 '+state.sim.gw+'%',gw,state.sim.gw,'var(--c2)')}${goal('Leakage & error control','Bluetooth weighing \u00b7 now '+p0(btNow)+'% \u2192 '+state.sim.bt+'%',btNow,state.sim.bt,'var(--c1)')}${goal('Expansion','Adhoc \u2192 plan conversion \u00b7 now 8% \u2192 '+state.sim.cv+'%',8,state.sim.cv,'var(--c5)')}</div>`;
+  const all=B('all'),dc=dryCats(D),met=dc[3],lag=zoneRows().sort((x,y)=>x.bt-y.bt)[0];
+  const ins=[
+    ['B','var(--c2)',lag.name+' trails the network on Bluetooth weighing','Only '+p0(lag.bt)+'% vs '+p0(cur(all.bt))+'% overall. Roll scales out to its remaining drivers.','\u2212'+p0(cur(all.bt)-lag.bt)+' pts','driver'],
+    ['M','var(--c6)','Metals punch above their weight','Metals are '+p0(met.ks*100)+'% of dry volume but '+p0(met.vs*100)+'% of recoverable value. Renegotiate vendor rates.',p0(met.vs*100)+'% value','driver'],
+    ['G','var(--c3)','Garden trucks leave full but light','Volume fill '+p0(gv)+'% vs weight fill '+p0(gw)+'%. Compaction or combined routes lift payload.',p0(100-gw)+'% idle','driver'],
+    ['%','var(--c1)','Cash is still slowing collections',p0(cur(D.cash))+'% of invoices are paid in cash. Digital modes cut handling and leakage.',p0(cur(D.cash))+'% cash','supervisor'],
+    ['A','var(--c5)','Weekend adhoc demand is a subscription lead','Unscheduled requests cluster on weekends. Package them as a premium plan.',fmt(sum(D.adhoc))+' reqs','supervisor']];
+  const insights=`<div class="ins">${ins.map(i=>`<button class="in" data-act="go:${i[5]}"><span class="ic" style="background:${i[1]}">${i[0]}</span><span><b>${i[2]}</b><span class="t">${i[3]}</span></span><em>${i[4]}</em></button>`).join('')}</div>`;
+  const zlist=`<div class="zlist">${zoneRows().map(z=>{const s=zStat(z);
+    return`<button class="zn" data-act="zone:${z.k}" aria-pressed="${state.zone===z.k}"${zTip(z,s)}><b>${z.name}</b><span class="pill ${s[0]}">${s[1]}</span><span class="zs">${fmt(z.t)} t \u00b7 BT ${p0(z.bt)}% \u00b7 SEG ${p0(z.sg)}%</span><span class="zb"><i style="width:${z.bt}%;background:${zCol(s)}"></i></span></button>`}).join('')}</div>`;
+  const zmap=`<div class="mapwrap"><div class="mapbox"><div id="zmap" role="region" aria-label="Map of the Bengaluru collection zones"></div></div><div>${zlist}${legend([['On track','var(--c1)'],['Watch','var(--warn)'],['Needs action','var(--bad)']])}
+    <p class="tiny" style="margin-top:10px">Each zone is pinned at its locality's real coordinates and sized by tonnage. Circles show an indicative service radius, not ward boundaries. Click a pin, circle or card to filter; click it again to clear.</p></div></div>`;
+  return hero+kp+`<div class="grid">${panel('s7','Growth driver scorecard','How close each business driver is to its target today','<div style="padding-bottom:4px">'+goals+'</div>','Every target maps to a tracked app event, so progress is measured, not estimated. <b>Adjust targets in Growth Opportunities.</b>')}
+    ${panel('s5','Where to act next','Ranked opportunities surfaced by the data',insights,'')}
+    ${panel('s12','Bengaluru zone map','Click a zone on the map, or in the list, to filter the whole dashboard to it',zmap,'Zone-level comparison shows exactly where training, equipment or van changes pay back first.')}</div>`}
+
+/* ---------- Driver App ---------- */
+function vDriver(D){
+  const btNow=cur(D.bt),segNow=cur(D.seg),tk=trucks(D),gw=avg(tk.map(t=>t.w)),gv=avg(tk.map(t=>t.v)),dc=dryCats(D),ec=ewCats(D),m=state.ui;
+  const kp=`<div class="kpis">${[
+    {l:'Bluetooth captures',v:p0(btNow),u:'%',d:dPts(D.bt),sp:D.bt,c:'var(--c2)'},
+    {l:'Manual entries',v:p0(100-btNow),u:'%',d:dPts(D.bt.map(v=>100-v),false),sp:D.bt.map(v=>100-v),c:'var(--c6)'},
+    {l:'Segregated stops',v:p0(segNow),u:'%',d:dPts(D.seg),sp:D.seg,c:'var(--c3)'},
+    {l:'Garden weight fill',v:p0(gw),u:'%',d:dPct(D.garden.map((g,i)=>g/D.total[i]*100),true),sp:D.garden,c:'var(--c1)'}].map(kpi).join('')}</div>`;
+  const weigh=`<div class="split"><div style="display:flex;flex-direction:column;align-items:center;gap:12px">${donut(176,[{name:'Bluetooth',val:btNow,color:'var(--c2)'},{name:'Manual entry',val:100-btNow,color:'var(--c6)'}],{big:p0(btNow)+'%',small:'Bluetooth'})}${legend([['Bluetooth','var(--c2)'],['Manual','var(--c6)']])}</div>
+    <div>${ch(216,(w,h)=>areaChart(w,h,{labels:D.labels,min:0,max:100,unit:'%',fmt:v=>p0(v)+'%',series:[{name:'Bluetooth',color:'var(--c2)',vals:D.bt},{name:'Manual',color:'var(--c6)',vals:D.bt.map(v=>+(100-v).toFixed(1)),dash:true}]}))}</div></div>`;
+  const seg=ch(230,(w,h)=>areaChart(w,h,{labels:D.labels,min:40,max:100,unit:'%',fmt:v=>p0(v)+'%',target:{v:80,label:'Target 80%'},series:[{name:'Segregated',color:'var(--c3)',vals:D.seg}]}));
+  const zseg=barsH(zoneKeys.map(k=>{const v=cur(B(k).seg);return{label:ZONES[k].name,sub:state.zone===k?'Selected':'',val:v,color:v<70?'var(--c4)':state.zone===k?'var(--brand)':'var(--c3)',text:p0(v)+'%',on:'zone:'+k,tip:`<b>${ZONES[k].name}</b><br>Segregation<span class="tv">${p1(v)}%</span>`}}),{max:100});
+  const dryItems=barsH(dc.map(x=>({label:x.n,sub:p0(x.ks*100)+'% of volume',val:m.dry==='vol'?x.kg:x.val,color:x.c,text:m.dry==='vol'?fmt(x.kg/1000)+' t':p1(x.vs*100)+'% of value',tip:`<b>${x.n}</b><br>${fmt(x.kg/1000)} t \u00b7 ${p0(x.ks*100)}% of dry volume<br>${p1(x.vs*100)}% of recoverable value`})));
+  const ewItems=barsH(ec.map(x=>({label:x.n,sub:p0(x.ks*100)+'% of volume',val:m.ew==='vol'?x.kg:x.val,color:x.c,text:m.ew==='vol'?fmt(x.kg)+' kg':p1(x.vs*100)+'% of value',tip:`<b>${x.n}</b><br>${fmt(x.kg)} kg \u00b7 ${p1(x.vs*100)}% of recoverable value`})));
+  const garden=`<div class="split" style="align-items:start"><div style="display:flex;gap:18px;flex-wrap:wrap;justify-content:center">
+    <div style="text-align:center">${donut(140,[{name:'Weight used',val:gw,color:'var(--c3)'},{name:'Unused payload',val:100-gw,color:'var(--surface-2)'}],{big:p0(gw)+'%',small:'By weight'})}</div>
+    <div style="text-align:center">${donut(140,[{name:'Volume used',val:gv,color:'var(--c1)'},{name:'Empty space',val:100-gv,color:'var(--surface-2)'}],{big:p0(gv)+'%',small:'By volume'})}</div></div>
+    <div>${legend([['Weight fill','var(--c3)'],['Volume fill','var(--c1)']])}<div class="bars" style="margin-top:12px">${tk.map(t=>`<div class="brow"${tip(`<b>${t.n}</b><br>Weight fill<span class="tv">${p0(t.w)}%</span><br>Volume fill<span class="tv">${p0(t.v)}%</span>`)}><div class="bl"><span>${t.n}</span></div><div style="display:grid;gap:4px"><div class="bt"><i style="width:${t.w}%;background:var(--c3)"></i></div><div class="bt"><i style="width:${t.v}%;background:var(--c1)"></i></div></div><div class="bv">${p0(t.w)}% · ${p0(t.v)}%</div></div>`).join('')}</div></div></div>`;
+  return kp+`<div class="grid">
+    ${panel('s12','Manual vs Bluetooth weighing','Share of weights captured automatically vs typed in by hand',weigh,'Automated capture protects data integrity, reduces human error and fraud, and shortens time per stop.')}
+    ${panel('s7','Segregation level','Segregated vs mixed waste at the stop, against the 80% goal',seg,'Powers targeted customer education, penalty billing for unsegregated waste, and higher resale value of sorted material.')}
+    ${panel('s5','Compliance by zone','Click a zone to filter the dashboard',zseg,'')}
+    ${panel('s7','Dry waste categories','Volume and recoverable-value share of the high-volume dry streams',dryItems+`<p class="tiny" style="margin-top:12px">${dc[3].n} make up <b>${p0(dc[3].ks*100)}%</b> of dry volume but <b>${p0(dc[3].vs*100)}%</b> of its value.</p>`,'Shows which materials yield most, so recycling vendor contracts and dynamic pricing follow the money.',toggle('dry',[['vol','Volume'],['val','Value share']]))}
+    ${panel('s5','E-waste categories','Lights, bulbs, batteries and cables collected',ewItems,'Unlocks high-margin hazardous and precious-metal recovery partnerships and specialised B2B sourcing.',toggle('ew',[['vol','Volume'],['val','Value share']]))}
+    ${panel('s12','Garden waste truck utilisation','Load weight vs load volume per truck. Garden waste is bulky but light',garden,'Spot underutilised trips caused by low-density loads, then optimise fleet routing and truck capacity planning.')}</div>`}
+
+/* ---------- Supervisor App ---------- */
+function vSupervisor(D){
+  const r=rng(hash('sup'+state.range+state.zone)),digital=D.cash.map(v=>+(100-v).toFixed(1)),nowCash=cur(D.cash);
+  const kp=`<div class="kpis">${[
+    {l:'Supervisor edits',v:p1(cur(D.edit)),u:'%',d:dPts(D.edit,false),sp:D.edit,c:'var(--c4)'},
+    {l:'Non-cash invoices',v:p0(100-nowCash),u:'%',d:dPts(digital),sp:digital,c:'var(--c1)'},
+    {l:'Adhoc requests',v:fmt(sum(D.adhoc)),d:dPct(D.adhoc),sp:D.adhoc,c:'var(--c5)'},
+    {l:'Feedback flags',v:fmt(sum(D.flags)),d:dPct(D.flags,false),sp:D.flags,c:'var(--c3)'},
+    {l:'Penalty requests',v:fmt(sum(D.pReq)),d:dPct(D.pReq),sp:D.pReq,c:'var(--c2)'}].map(kpi).join('')}</div>`;
+  const collections=D.totalT*8,edits=Math.round(collections*cur(D.edit)/100),drv=['Ravi K.','Murugan S.','Anitha R.','Karthik P.','Selvam T.','Priya D.'],sh=shares([.25,.2,.17,.15,.13,.1],r);
+  const ed=barsH(drv.map((n,i)=>{const c=Math.round(edits*sh[i]),kg=Math.round(c*(2+r()*5));return{label:n,sub:'net ±'+kg+' kg',val:c,text:c+' edits',color:sh[i]>.22?'var(--c4)':'var(--c1)',tip:`<b>${n}</b><br>${c} collections corrected by a supervisor<br>Net weight change ±${kg} kg`}}));
+  const editChart=ch(220,(w,h)=>areaChart(w,h,{labels:D.labels,min:0,max:12,unit:'%',fmt:v=>p0(v)+'%',series:[{name:'Edited collections',color:'var(--c4)',vals:D.edit}]}));
+  const payChart=ch(220,(w,h)=>stackCols(w,h,{labels:D.labels,series:[{name:'Cash',color:'var(--c4)',vals:D.cash},{name:'Cheque',color:'var(--c3)',vals:D.chq},{name:'NEFT',color:'var(--c1)',vals:D.neft}]}));
+  const pay=`<div class="split"><div style="display:flex;flex-direction:column;align-items:center;gap:12px">${donut(160,[{name:'NEFT',val:cur(D.neft),color:'var(--c1)'},{name:'Cheque',val:cur(D.chq),color:'var(--c3)'},{name:'Cash',val:nowCash,color:'var(--c4)'}],{big:p0(cur(D.neft))+'%',small:'NEFT'})}${legend([['NEFT','var(--c1)'],['Cheque','var(--c3)'],['Cash','var(--c4)']])}</div><div>${payChart}</div></div>`;
+  const wf=[.8,.75,.8,.85,1,1.5,1.7].map(v=>v*7/7.4),days=['Mon','Tue','Wed','Thu','Fri','Sat','Sun'],zf={mahadevapura:1.35,council:1.2};
+  const grid=zoneKeys.map(k=>{const z=B(k),tot=sum(z.adhoc)*(zf[k]||1);return{k,v:wf.map(f=>Math.round(tot*f/7))}}),mx=Math.max(1,...grid.flatMap(g=>g.v));
+  const heat=`<div class="heat"><span></span>${days.map(d=>`<span class="hh">${d}</span>`).join('')}${grid.map(g=>`<span class="rl">${ZONES[g.k].name}</span>`+g.v.map((v,i)=>`<span class="c"${tip(`<b>${ZONES[g.k].name} · ${days[i]}</b><br>Adhoc requests<span class="tv">${v}</span>`)} style="background:color-mix(in srgb,var(--c4) ${Math.round(6+v/mx*56)}%,var(--surface-2))">${v}</span>`).join('')).join('')}</div><p class="tiny" style="margin-top:12px">Demand peaks Saturday and Sunday. <b>${ZONES[grid.reduce((x,g)=>sum(g.v)>sum(x.v)?g:x).k].name}</b> shows the highest request density.</p>`;
+  const rf={anekal:1.4,council:1.25,bsouth:1.1},resp=barsH(zoneKeys.map(k=>{const v=cur(B(k).resp)*(rf[k]||.95);return{label:ZONES[k].name,val:v,text:v.toFixed(1)+' h',color:v>5?'var(--c4)':'var(--c1)',on:'zone:'+k,tip:`<b>${ZONES[k].name}</b><br>Median response<span class="tv">${v.toFixed(1)} h</span>`}}),{max:8});
+  const rs=(names,w,tot)=>barsH(names.map((n,i)=>({label:n,val:w[i],text:Math.round(w[i]*tot),color:['var(--c4)','var(--c3)','var(--c2)','var(--c5)','var(--c6)'][i]})));
+  const fb=rs(['Missed pickup','Late arrival','Mixed-waste dispute','Billing query','Bin not returned'],[.31,.24,.18,.16,.11],sum(D.flags));
+  const pn=rs(['Non-segregation','Delayed handoff','Missed drop','Improper bagging','Other'],[.46,.22,.14,.11,.07],sum(D.pReq));
+  return kp+`<div class="grid">
+    ${panel('s7','Edited collections','Share of collections corrected after pickup. Edit rights sit with supervisors only',editChart+`<p class="tiny" style="margin-top:12px">Drivers and managers cannot change a completed collection. Every edit carries the supervisor name, reason and time.</p>`,'Monitors driver accuracy, spots dispute trends and stops revenue loss from incorrect manual overrides.','<span class="pill info">Supervisor-only edit</span>')}
+    ${panel('s5','Most-corrected drivers','Supervisor edits grouped by the driver who logged the collection. Above 22% is flagged',ed,'')}
+    ${panel('s12','Invoice payment types','How customers pay: cash, cheque or NEFT, as a share of invoices',pay,'Speeds up cash flow and shows where to digitise payments, cutting handling costs and leakage.')}
+    ${panel('s7','Adhoc requests','Unscheduled collections by zone and weekday',heat,'Reveals demand surges and high-value prospects for premium or subscription-based adhoc service plans.')}
+    ${panel('s5','Response time','Median hours from adhoc request to pickup',resp,'')}
+    ${panel('s6','Feedback requests','Customer dissatisfaction flags by reason',fb,'Faster action on the top reasons reduces churn and keeps service SLAs on track.')}
+    ${panel('s6','Penalty requests','Infractions tagged for penalty by type',pn,'Documents every infraction cleanly, enforcing compliance and supporting penalty billing.')}</div>`}
+
+/* ---------- Manager App ---------- */
+function vManager(D){
+  const rq=sum(D.pReq),ap=sum(D.pApp),co=Math.round(ap*.9),rate=ap/rq*100,
+    infArr=D.pReq.map((v,i)=>v/(D.total[i]*8)*100);
+  const kp=`<div class="kpis">${[
+    {l:'Van reassignments',v:fmt(sum(D.route)),d:dPct(D.route),sp:D.route,c:'var(--c2)'},
+    {l:'Fuel saved',v:fmt(sum(D.fuel)),u:' L',d:dPct(D.fuel),sp:D.fuel,c:'var(--c1)'},
+    {l:'Time per stop',v:cur(D.tps).toFixed(1),u:' min',d:dPct(D.tps,false),sp:D.tps,c:'var(--c5)'},
+    {l:'Customer CSAT',v:cur(D.csat).toFixed(2),u:' / 5',d:dPts(D.csat,true,''),sp:D.csat,c:'var(--c3)'},
+    {l:'Penalty approval',v:p0(rate),u:'%',d:dPct(D.pApp),sp:D.pApp,c:'var(--c6)'},
+    {l:'Infraction rate',v:p1(cur(infArr)),u:'%',d:dPct(infArr,false),sp:infArr,c:'var(--c4)'}].map(kpi).join('')}</div>`;
+  const tps=ch(220,(w,h)=>areaChart(w,h,{labels:D.labels,min:5,max:9,unit:' min',fmt:v=>v.toFixed(v%1?1:0),series:[{name:'Time per stop',color:'var(--c5)',vals:D.tps}]}));
+  const reasons=barsH(['Vehicle breakdown','Overloaded route, larger van','Lighter route, smaller van','Scheduled service due','Van unavailable'].map((n,i)=>{const w=[.30,.26,.21,.14,.09][i];return{label:n,val:w,text:Math.round(w*sum(D.route)),color:['var(--c4)','var(--c2)','var(--c1)','var(--c3)','var(--c6)'][i]}}));
+  const fbT=state.ui.fb==='time',fbChart=ch(220,(w,h)=>fbT?areaChart(w,h,{labels:D.labels,min:0,max:12,unit:' h',fmt:v=>p0(v)+'h',series:[{name:'Resolution time',color:'var(--c1)',vals:D.resolve}]}):areaChart(w,h,{labels:D.labels,min:3.5,max:4.5,pl:44,fmt:v=>v.toFixed(2),series:[{name:'CSAT',color:'var(--c3)',vals:D.csat}]}));
+  const rc=[['Missed pickup',.31,-12],['Delayed arrival',.24,-6],['Wrong billing',.16,-18],['Bin not returned',.11,4]],tf=sum(D.flags);
+  const recur=barsH(rc.map((c,i)=>({label:c[0],sub:'repeat within 30 days',val:c[1],text:`${Math.round(c[1]*tf*.42)} <span style="color:var(--${c[2]<=0?'good':'bad'})">${c[2]<=0?'▼':'▲'}${Math.abs(c[2])}%</span>`,color:['var(--c4)','var(--c3)','var(--c2)','var(--c5)'][i]})));
+  const funnel=`<div class="split"><div style="display:flex;flex-direction:column;align-items:center;gap:10px">${donut(150,[{name:'Approved',val:rate,color:'var(--c1)'},{name:'Not approved',val:100-rate,color:'var(--surface-2)'}],{big:p0(rate)+'%',small:'Approved'})}</div>
+    <div>${barsH([{label:'Requested',val:rq,text:fmt(rq),color:'var(--c6)'},{label:'Approved',val:rq,text:fmt(ap),color:'var(--c3)'},{label:'Collected',val:rq,text:fmt(co),color:'var(--c1)'}].map((x,i)=>({...x,val:[rq,ap,co][i]})),{max:rq})}<p class="tiny" style="margin-top:12px">${fmt(rq-ap)} requests were declined or reworked, keeping penalties fair and defensible.</p></div></div>`;
+  const rev=ch(210,(w,h)=>areaChart(w,h,{labels:D.labels,min:0,unit:'%',fmt:v=>v.toFixed(1)+'%',series:[{name:'Infraction rate',color:'var(--c4)',vals:infArr}]}));
+  const vn=(a,c)=>`<span class="van">${a}</span><span class="arr">→</span><span class="van new">${c}</span>`;
+  const sw=[['R-08','Mahadevapura','V-04 · 2.5 t','V-11 · 4 t','Overloaded route','+38% payload fit','Manager'],['R-03','Jayanagar','V-07 · 4 t','V-02 · 2.5 t','Lighter route','−1.8 L fuel per trip','Asst. Manager'],['R-12','Bommanahalli','V-09 · 4 t','V-05 · 4 t','Vehicle breakdown','Back on route in 22 min','Manager'],['R-05','BTM Layout','V-01 · 2.5 t','V-08 · 2.5 t','Scheduled service','0 missed stops','Asst. Manager'],['R-10','Anekal','V-06 · 2.5 t','V-03 · 4 t','Overloaded route','+31% payload fit','Manager']];
+  const swaps=`<div class="tw"><table><thead><tr><th>Route</th><th>Assigned unit → replacement</th><th>Reason</th><th>Impact</th><th>Approved by</th></tr></thead><tbody>${sw.map(s=>`<tr><td><b>${s[0]}</b><br><span class="tiny">${s[1]}</span></td><td>${vn(s[2].split(' · ')[0],s[3].split(' · ')[0])}<br><span class="tiny">${s[2].split(' · ')[1]} → ${s[3].split(' · ')[1]}</span></td><td>${s[4]}</td><td><span class="pill good">${s[5]}</span></td><td>${s[6]}</td></tr>`).join('')}</tbody></table></div>`;
+  return kp+`<div class="grid">
+    ${panel('s7','Van reassignments','Route changes where another van unit replaces the one originally assigned. Minutes per stop on those routes',tps,'Matching the right van to each route lowers fuel overhead and operating cost, and keeps coverage on time when a unit fails.')}
+    ${panel('s5','Why a different van is assigned','Reasons for swapping the assigned unit · '+fmt(sum(D.fuel))+' L fuel saved',reasons,'')}
+    ${panel('s12','Recent van reassignments','Latest swaps approved in the Manager app: assigned unit to replacement unit',swaps,'Every swap is logged with its reason and impact, so fleet spend and missed-stop risk stay visible to management.')}
+    ${panel('s7','Feedback resolution','Time to close complaints and customer satisfaction trend',fbChart,'Builds brand reputation and client trust, which supports expansion into municipal and enterprise contracts.',toggle('fb',[['time','Resolution time'],['csat','CSAT']]))}
+    ${panel('s5','Recurring complaints','Repeat issues and their trend',recur,'')}
+    ${panel('s5','Penalty approvals','From request to money collected',funnel,'Fair governance that prevents misuse, and adds a secondary revenue stream from compliance enforcement.')}
+    ${panel('s7','Infraction trend','Share of collections tagged for penalty, over time',rev,'A falling infraction rate shows the compliance programme working; a rising one shows where enforcement or education still has to land.')}</div>`}
+
+/* ---------- Growth Opportunities ---------- */
+const BASE={bt:81,sg:73,pay:69,gw:54,cv:8};
+function simCalc(s){
+  const manual=((100-BASE.bt)-(100-s.bt))/(100-BASE.bt)*100,
+    cash=((100-BASE.pay)-(100-s.pay))/(100-BASE.pay)*100,
+    leak=(manual+cash)/2,
+    rev=(s.sg-BASE.sg)/BASE.sg*100,
+    eff=s.gw>BASE.gw?(1-BASE.gw/s.gw)*100:0,
+    exp=(s.cv-BASE.cv)/BASE.cv*100;
+  return{manual,cash,leak,rev,eff,exp,total:(leak+rev+eff+exp)/4}}
+const pct=v=>(v>=0?'+':'\u2212')+Math.abs(v).toFixed(1)+'%';
+const SL=[['bt','Bluetooth weighing coverage',81,100,'Today 81% of collections'],['sg','Segregation compliance',73,95,'Today 73% of stops'],['pay','Non-cash invoices',69,100,'Cheque + NEFT, today 69%'],['gw','Garden truck weight fill',54,90,'Today 54% of rated payload'],['cv','Adhoc \u2192 subscription conversion',8,30,'Today 8% of adhoc customers']];
+function simBars(){const c=simCalc(state.sim),it=[
+  ['Revenue optimisation','More segregated tonnage recovered','rev','var(--c3)',`Segregated stops ${BASE.sg}% \u2192 ${state.sim.sg}%`],
+  ['Operational efficiency','Fewer garden trips for the same load','eff','var(--c2)',`Weight fill ${BASE.gw}% \u2192 ${state.sim.gw}%`],
+  ['Leakage & error control','Fewer manual weighments and cash invoices','leak','var(--c1)',`Manual weighing ${pct(-c.manual)} \u00b7 cash invoices ${pct(-c.cash)}`],
+  ['Expansion','More adhoc customers on a plan','exp','var(--c5)',`Conversion ${BASE.cv}% \u2192 ${state.sim.cv}%`]];
+  return barsH(it.map(i=>({label:i[0],sub:i[1],val:c[i[2]],text:pct(c[i[2]]),color:i[3],tip:`<b>${i[0]}</b><br>${i[4]}<span class="tv">${pct(c[i[2]])}</span>`})),{max:Math.max(...it.map(i=>c[i[2]]),1)})}
+function vGrowth(){
+  const sl=SL.map(s=>`<div class="sl"><label for="sl_${s[0]}">${s[1]}<output id="o_${s[0]}">${state.sim[s[0]]}%</output></label><input type="range" id="sl_${s[0]}" data-sim="${s[0]}" min="${s[2]}" max="${s[3]}" step="1" value="${state.sim[s[0]]}" style="--p:${(state.sim[s[0]]-s[2])/(s[3]-s[2])*100}%"><small>${s[4]}</small></div>`).join('');
+  const c=simCalc(state.sim);
+  return`<div class="grid">${panel('s5','Set your targets','Drag to see what acting on the app data moves',`<div class="sim">${sl}</div><p style="margin-top:18px"><button class="seg" style="padding:0" data-act="reset"><span style="padding:6px 14px;font:500 12.5px var(--mono)">Reset targets</span></button></p>`,'')}
+    <div class="s7" style="min-width:0"><div class="tot"><div class="eyebrow">Composite improvement vs today \u00b7 all zones</div><div class="n" id="simTot">${pct(c.total)}</div><p>Equal-weighted index across the four growth drivers, measured against today's baseline.</p></div>
+    ${panel('','Where the improvement comes from','Change on the current baseline when each target is met',`<div id="simBars">${simBars()}</div>`,'Each driver is fed by events the apps already capture. <b>Nothing extra to collect.</b>')}
+    <p class="note"><b>Illustrative model.</b> Today's baselines: manual weighing on 19% of collections, cash on 31% of invoices, 73% of stops segregated, garden trucks at 54% weight fill and 8% of adhoc customers on a plan. Each bar is the percentage change on that baseline when the target is met, and the headline is the equal-weighted average of the four. Swap in the client's own baselines to make it exact.</p></div></div>`}
+let shown=0;
+function tween(el,to){const from=shown,t0=performance.now();shown=to;(function f(t){const k=Math.min(1,(t-t0)/380),e=1-Math.pow(1-k,3);el.textContent=pct(from+(to-from)*e);if(k<1)requestAnimationFrame(f)})(t0)}
+function updateSim(){const c=simCalc(state.sim),el=$('#simTot');if(!el)return;tween(el,c.total);$('#simBars').innerHTML=simBars()}
+
+/* ---------- hero live ---------- */
+const FEED=['T-04 · 182 kg captured by Bluetooth scale · Mahadevapura','Segregated pickup confirmed · 46 kg dry waste · Jayanagar','E-waste logged · 6 tube lights, 3 batteries · BTM Layout','Route R-12 · van V-05 assigned in place of V-09 · Bommanahalli','Supervisor edit logged · −4 kg · wrong category · Anekal','NEFT payment confirmed · Invoice #2291 · Padmanabhanagar','Garden load weighed · T-02 · 640 kg at 91% volume fill · Bengaluru South'];
+let feedT,feedI=0;
+function heroLive(){clearInterval(feedT);const n=$('#heroNum'),f=$('#feedTxt');if(!f)return;
+  const step=()=>{f.classList.remove('in');void f.offsetWidth;f.textContent=FEED[feedI++%FEED.length];f.classList.add('in')};step();
+  if(matchMedia('(prefers-reduced-motion:reduce)').matches)return;
+  feedT=setInterval(step,3400);
+  const v=+n.dataset.v,t0=performance.now();(function go(t){const k=Math.min(1,(t-t0)/900),e=1-Math.pow(1-k,3);n.textContent=fmt(v*(.82+.18*e));if(k<1)requestAnimationFrame(go)})(t0)}
+
+/* ---------- assistant ---------- */
+const chatEl=$('#chat'),fabEl=$('#fab'),msgsEl=$('#msgs'),suggEl=$('#sugg');
+const SUGG=['How is Bluetooth weighing trending?','Which zone needs attention?','How is Mahadevapura doing?','What do supervisors edit most?'];
+function snap(){const D=B(state.zone),zs=zoneKeys.map(k=>({n:ZONES[k].name,bt:cur(B(k).bt),sg:cur(B(k).seg)})).sort((x,y)=>x.bt-y.bt);return{D,worst:zs[0],best:zs[zs.length-1]}}
+function reply(q){const t=q.toLowerCase(),S=snap(),D=S.D;
+  const zk=zoneKeys.find(k=>t.includes(ZONES[k].name.toLowerCase())||t.includes(k));
+  if(zk){const z=zoneRows().find(r=>r.k===zk),s=zStat(z);return `<b>${z.name}</b> (${GEO[zk][4]}) is marked <b>${s[1].toLowerCase()}</b>: ${fmt(z.t)} t collected, Bluetooth ${p0(z.bt)}%, segregation ${p0(z.sg)}%, CSAT ${z.cs.toFixed(2)} / 5. Click its pin on the zone map to filter the dashboard.`}
+  if(/bluetooth|weigh|manual|scale/.test(t))return `Bluetooth capture is at <b>${p0(cur(D.bt))}%</b> for ${D.R.txt.toLowerCase()} (${dPts(D.bt).txt} across the period). The remaining <b>${p0(100-cur(D.bt))}%</b> is typed in by hand, and that is where billing disputes start.`;
+  if(/zone|area|map|bengaluru|bangalore/.test(t))return `<b>${S.worst.n}</b> needs attention: Bluetooth ${p0(S.worst.bt)}%, segregation ${p0(S.worst.sg)}%, against <b>${S.best.n}</b> at ${p0(S.best.bt)}%. Click ${S.worst.n} on the zone map to filter everything to it.`;
+  if(/segregat|mixed|complian/.test(t))return `Segregation compliance is <b>${p0(cur(D.seg))}%</b> of stops, ${dPts(D.seg).txt} across the period, against the 80% goal. The mixed-waste stops are the ones worth targeting for education or penalty billing.`;
+  if(/edit|supervis|correct/.test(t))return `Supervisors corrected <b>${p1(cur(D.edit))}%</b> of collections (${dPts(D.edit,false).txt}). Edit rights sit with supervisors only, and every correction carries a name, a reason and a time.`;
+  if(/growth|opportun|potential|target/.test(t))return `The four drivers are revenue optimisation, operational efficiency, leakage control and expansion. Open <b>Growth Opportunities</b> (key 5) to drag each target and watch what it moves.`;
+  if(/adhoc|request|subscri|weekend/.test(t))return `<b>${fmt(sum(D.adhoc))}</b> adhoc requests this period, clustered on weekends, median response ${cur(D.resp).toFixed(1)} h. That weekend demand is the clearest subscription lead.`;
+  if(/van|route|fleet|truck|fuel/.test(t))return `<b>${fmt(sum(D.route))}</b> van reassignments this period, mostly breakdowns and overloaded routes, saving roughly ${fmt(sum(D.fuel))} L of fuel. Garden trucks still run at ${p0(avg(trucks(D).map(x=>x.w)))}% weight fill.`;
+  if(/penalt|complaint|feedback|csat|satisf/.test(t))return `CSAT sits at <b>${cur(D.csat).toFixed(2)} / 5</b> and complaints close in ${p1(cur(D.resolve))} h. Penalty approvals run at ${p0(sum(D.pApp)/sum(D.pReq)*100)}% of requests, which keeps enforcement defensible.`;
+  if(/dry|plastic|paper|metal|e-waste|ewaste|batter/.test(t))return `Dry recyclables are ${p0(sum(D.dry)/D.totalT*100)}% of the tonnage and e-waste ${(sum(D.ew)/D.totalT*100).toFixed(1)}%. Metals and batteries carry the highest recovery value per kilogram \u2014 see the Driver view for the full split.`;
+  if(/hi$|hello|hey|help|what can you/.test(t))return `Ask me about collections, Bluetooth weighing, segregation, zones, supervisor edits, vans or growth targets. I read whatever filters you have set \u2014 right now ${D.R.txt.toLowerCase()}, ${D.Z.name.toLowerCase()}.`;
+  return `In this concept I answer from what is on screen. Right now: <b>${fmt(D.totalT)} t</b> collected, Bluetooth at ${p0(cur(D.bt))}%, segregation at ${p0(cur(D.seg))}%. Wired to live app events, this becomes a full question-and-answer layer over the same data.`}
+function push(who,html){const d=document.createElement('div');d.className='msg '+who;d.innerHTML=html;msgsEl.appendChild(d);msgsEl.scrollTop=msgsEl.scrollHeight}
+function ask(q){push('me',esc(q));setTimeout(()=>push('bot',reply(q)),260)}
+function chatOpen(on){chatEl.hidden=!on;fabEl.hidden=on;fabEl.setAttribute('aria-expanded',on);
+  if(on&&!msgsEl.childElementCount)push('bot','Namaskara \u2014 I am <b>Hasiru Vani</b>, your Unwaste assistant. I can read every number on this dashboard. <b>Concept preview:</b> answers come from the sample data on screen.');
+  if(on)setTimeout(()=>$('#cinp').focus(),60)}
+suggEl.innerHTML=SUGG.map(s=>`<button type="button" data-q="${esc(s)}">${s}</button>`).join('');
+suggEl.addEventListener('click',e=>{const t=e.target.closest('[data-q]');if(t)ask(t.dataset.q)});
+$('#cform').addEventListener('submit',e=>{e.preventDefault();const i=$('#cinp'),v=i.value.trim();if(!v)return;i.value='';ask(v)});
+document.addEventListener('keydown',e=>{if(e.key==='Escape'&&!chatEl.hidden)chatOpen(false)});
+
+/* ---------- zone map ---------- */
+let lmap=null,tiles=null,mapView=null,tileOk=false,offline=false;
+const TILE=d=>`https://{s}.basemaps.cartocdn.com/${d?'dark_all':'light_all'}/{z}/{x}/{y}{r}.png`;
+const isDark=()=>{const t=document.documentElement.dataset.theme;return t?t==='dark':matchMedia('(prefers-color-scheme:dark)').matches};
+/* approximate arterial roads, drawn only when street tiles cannot load */
+const ROADS=[[[12.9569,77.7011],[12.9260,77.6760],[12.9230,77.6420],[12.9177,77.6238],[12.9170,77.5990],[12.9180,77.5730],[12.9300,77.5450]],
+  [[12.9177,77.6238],[12.8900,77.6380],[12.8452,77.6602],[12.7985,77.7030],[12.7797,77.7707]],
+  [[12.9380,77.6000],[12.9170,77.5990],[12.8870,77.5970],[12.8540,77.5890],[12.8000,77.5770]],
+  [[12.9360,77.5800],[12.9180,77.5730],[12.8890,77.5680],[12.8600,77.5540],[12.8300,77.5400]],
+  [[12.8350,77.6680],[12.8420,77.5930],[12.8470,77.5440]],
+  [[12.9230,77.6420],[12.9200,77.6860],[12.9070,77.7050],[12.8830,77.7560]],
+  [[12.9569,77.7011],[12.9698,77.7500]],
+  [[12.8452,77.6602],[12.7780,77.6450],[12.7110,77.6950]]];
+function killMap(){if(!lmap)return;mapView={zone:state.zone,c:lmap.getCenter(),z:lmap.getZoom()};lmap.remove();lmap=tiles=null}
+function drawOffline(){if(!lmap)return;if(tiles){lmap.removeLayer(tiles);tiles=null}
+  ROADS.forEach(r=>L.polyline(r,{className:'zroad',weight:2,interactive:false}).addTo(lmap));
+  const n=document.createElement('div');n.className='mapnote';n.textContent='Offline view: street tiles need an internet connection. Zone positions are still exact.';lmap.getContainer().appendChild(n)}
+function goOffline(){if(offline||!lmap)return;offline=true;drawOffline()}
+function setZone(k){state.zone=state.zone===k?'all':k;render()}
+function initMap(){const el=$('#zmap');if(!el)return;
+  if(!window.L){el.innerHTML='<p class="tiny" style="padding:16px">The map needs an internet connection to load. The zone cards alongside carry the same figures.</p>';return}
+  lmap=L.map(el,{zoomSnap:.25,scrollWheelZoom:false,minZoom:9,maxZoom:16});
+  lmap.attributionControl.setPrefix('<a href="https://leafletjs.com">Leaflet</a>');
+  if(!offline){tiles=L.tileLayer(TILE(isDark()),{subdomains:'abcd',maxZoom:19,attribution:'&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>'}).addTo(lmap);
+    tiles.on('tileload',()=>{tileOk=true});tiles.on('tileerror',()=>{if(!tileOk)goOffline()});
+    setTimeout(()=>{if(!tileOk)goOffline()},4500)}
+  const zr=zoneRows(),ts=zr.map(z=>z.t),mx=Math.max(...ts),mn=Math.min(...ts),sel=state.zone;
+  zr.forEach(z=>{const g=GEO[z.k],s=zStat(z),on=sel===z.k,dim=sel!=='all'&&!on,ll=[g[0],g[1]],cls=' s-'+s[0]+(on?' on':'')+(dim?' dim':'');
+    const circ=L.circle(ll,{radius:g[2],className:'zcirc'+cls}).addTo(lmap);
+    circ.on('click',()=>setTimeout(()=>setZone(z.k)));
+    const pe=circ.getElement();if(pe)pe.setAttribute('data-tip',zTipHtml(z,s));
+    const d=Math.round(14+14*(z.t-mn)/((mx-mn)||1));
+    L.marker(ll,{title:z.name,riseOnHover:true,zIndexOffset:on?1000:0,icon:L.divIcon({className:'zmk',iconSize:[d,d],iconAnchor:[d/2,d/2],
+      html:`<div class="zpin p-${g[3]}${cls}"${zTip(z,s)}><span class="zdot"></span><span class="zlbl">${esc(z.name)}<small>${p0(z.bt)}%</small></span></div>`})})
+      .addTo(lmap).on('click',()=>setTimeout(()=>setZone(z.k)))});
+  if(offline)drawOffline();
+  if(mapView&&mapView.zone===sel)lmap.setView(mapView.c,mapView.z,{animate:false});
+  else if(sel!=='all'){const g=GEO[sel];lmap.setView([g[0],g[1]],12.5,{animate:false})}
+  else{const px=Math.round(Math.min(160,el.clientWidth*.26));lmap.fitBounds(zr.map(z=>[GEO[z.k][0],GEO[z.k][1]]),{paddingTopLeft:[px,52],paddingBottomRight:[px+10,36],maxZoom:12.5})}}
+
+/* ---------- shell ---------- */
+const META={overview:['Overview','One view of collection volume, route efficiency, customer satisfaction and leakage prevention.',vOverview],driver:['Driver','Ground-level data that improves logistics, waste composition insight and load planning.',vDriver],supervisor:['Supervisor','Quality control, dispute resolution, payment verification and service-expansion signals.',vSupervisor],manager:['Manager','Executive metrics behind strategy, policy enforcement and van allocation across routes.',vManager],growth:['Growth Opportunities','Model what the four growth drivers are worth when the app data is acted on.',vGrowth]};
+function render(anim){
+  killMap();charts.length=0;tipEl.style.opacity=0;clearInterval(feedT);
+  const m=META[state.view],v=$('#view');
+  $('#ttl').textContent=m[0];$('#sub').textContent=m[1];
+  if(anim){v.style.animation='none';void v.offsetHeight;v.style.animation=''}
+  v.innerHTML=m[2](B(state.zone));
+  document.querySelectorAll('.nb').forEach(b=>b.setAttribute('aria-current',b.dataset.act==='nav:'+state.view?'page':'false'));
+  document.querySelectorAll('#rng button').forEach(b=>b.setAttribute('aria-pressed',b.dataset.act==='range:'+state.range));
+  $('#zoneSel').value=state.zone;
+  const g=state.view==='growth';$('#rng').hidden=g;$('#zoneSel').hidden=g;
+  shown=simCalc(state.sim).total;drawCharts();if(state.view==='overview'){heroLive();initMap()}
+}
+function applyTheme(t){document.documentElement.dataset.theme=t;try{localStorage.setItem('uw-theme',t)}catch(_){}}
+function toggleTheme(){const rt=document.documentElement,dark=rt.dataset.theme==='dark'||(!rt.dataset.theme&&matchMedia('(prefers-color-scheme:dark)').matches);applyTheme(dark?'light':'dark');if(tiles)tiles.setUrl(TILE(!dark));}
+document.addEventListener('click',e=>{
+  const t=e.target.closest('[data-act]');if(!t)return;const[a,b,c]=t.dataset.act.split(':');
+  if(a==='nav'||a==='go'){state.view=b;render(true);scrollTo({top:0})}
+  else if(a==='range'){state.range=b;render()}
+  else if(a==='zone')setZone(b);
+  else if(a==='ui'){state.ui[b]=c;render()}
+  else if(a==='theme')toggleTheme();
+  else if(a==='chat')chatOpen(chatEl.hidden);
+  else if(a==='reset'){Object.assign(state.sim,{bt:92,sg:85,pay:85,gw:78,cv:14});render()}
+});
+document.addEventListener('keydown',e=>{
+  const t=e.target;
+  if((e.key==='Enter'||e.key===' ')&&t.getAttribute&&t.getAttribute('role')==='button'&&!t.closest('.leaflet-container')){e.preventDefault();t.dispatchEvent(new MouseEvent('click',{bubbles:true}));return}
+  if(/^[1-5]$/.test(e.key)&&!/INPUT|SELECT|TEXTAREA/.test(t.tagName)&&!e.metaKey&&!e.ctrlKey){state.view=['overview','driver','supervisor','manager','growth'][e.key-1];render(true);scrollTo({top:0})}
+});
+document.addEventListener('input',e=>{const k=e.target.dataset&&e.target.dataset.sim;if(!k)return;const s=SL.find(x=>x[0]===k),val=+e.target.value;state.sim[k]=val;$('#o_'+k).textContent=val+'%';e.target.style.setProperty('--p',(val-s[2])/(s[3]-s[2])*100+'%');updateSim()});
+$('#zoneSel').addEventListener('change',e=>{state.zone=e.target.value;render()});
+let rz;new ResizeObserver(()=>{clearTimeout(rz);rz=setTimeout(()=>{drawCharts();if(lmap)lmap.invalidateSize()},80)}).observe($('#view'));
+try{const s=localStorage.getItem('uw-theme');if(s)document.documentElement.dataset.theme=s}catch(_){}
+render(false);
+})();
+</script>
+</body>
+</html>
